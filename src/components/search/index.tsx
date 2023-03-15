@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './index.css';
+import classes from './index.module.css';
 
 interface SearchState {
   search: string;
@@ -9,7 +9,7 @@ type State = Readonly<SearchState>;
 
 class Search extends Component {
   public readonly state: State = {
-    search: localStorage.getItem('search') || '',
+    search: localStorage.getItem('search') ?? '',
   };
 
   setSearch(value: string) {
@@ -25,7 +25,7 @@ class Search extends Component {
 
   render() {
     return (
-      <form className="form">
+      <form className={classes.form}>
         <input
           type="search"
           placeholder="Search..."
@@ -34,9 +34,9 @@ class Search extends Component {
             this.setSearch(e.target.value);
             console.log(e.target.value);
           }}
-          className="search"
+          className={classes.search}
         />
-        <button type="button" className="button">
+        <button type="button" className={classes.button}>
           Search
         </button>
       </form>
