@@ -1,0 +1,26 @@
+.header {
+  margin: 0;
+  padding: 0;
+  padding: 2rem;
+  text-align: center;
+  background-color: #16181d;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: center;
+}
+
+.link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.link:hover {
+  color: #61dafb;
+  transition: 0.3s;
+}
