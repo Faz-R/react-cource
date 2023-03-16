@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import classes from './index.module.css';
 
-interface SearchState {
+type SearchState = {
   search: string;
-}
+};
 
-type State = Readonly<SearchState>;
+type SearchProps = Record<string, never>;
 
-class Search extends Component {
-  public readonly state: State = {
-    search: localStorage.getItem('search') ?? '',
-  };
+class Search extends Component<SearchProps, SearchState> {
+  constructor(props: SearchProps) {
+    super(props);
+    this.state = { search: localStorage.getItem('search') ?? '' };
+  }
 
-  setSearch(value: string) {
-    localStorage.setItem('search', value);
-    this.setState(() => {
-      return { search: value };
+  componentDidMount() {
+    this.setState({ search: localStorage.getItem('search') ?? '' });
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('search', this.state.search);
+  }
+
+  changeSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    this.setState({
+      search: e.target.value,
     });
-  }
-
-  getSearch() {
-    return this.state.search;
-  }
+  };
 
   render() {
     return (
@@ -29,11 +33,8 @@ class Search extends Component {
         <input
           type="search"
           placeholder="Search..."
-          value={this.getSearch()}
-          onChange={(e) => {
-            this.setSearch(e.target.value);
-            console.log(e.target.value);
-          }}
+          value={this.state.search}
+          onChange={this.changeSearch}
           className={classes.search}
         />
         <button type="button" className={classes.button}>

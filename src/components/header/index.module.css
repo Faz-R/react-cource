@@ -18,9 +18,16 @@
   color: #fff;
   font-size: 20px;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 .link:hover {
   color: #61dafb;
   transition: 0.3s;
+}
+
+.current {
+  color: #61dafb;
+  margin-right: auto;
+  text-transform: uppercase;
 }
