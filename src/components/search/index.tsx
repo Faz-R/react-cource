@@ -36,6 +36,7 @@ class Search extends Component<SearchProps, SearchState> {
           value={this.state.search}
           onChange={this.changeSearch}
           className={classes.search}
+          name="search"
         />
         <button type="button" className={classes.button}>
           Search
