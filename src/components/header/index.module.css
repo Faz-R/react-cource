@@ -26,6 +26,14 @@
   transition: 0.3s;
 }
 
+.active {
+  text-decoration: none;
+  color: #61dafb;
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
 .current {
   color: #61dafb;
   margin-right: auto;
