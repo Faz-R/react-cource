@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import getCards from '../../utils/getCards';
 import classes from './index.module.css';
 import { ICard } from '../../interface/ICard';
 import Card from '../card';
+import getCards from '../../utils/getCards';
 
 type CardsState = {
   cards: ICard[];

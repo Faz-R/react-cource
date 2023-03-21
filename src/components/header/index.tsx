@@ -21,6 +21,9 @@ class Header extends Component<HeaderProps, never> {
               <Link to="/" className={classes.link}>
                 Home
               </Link>
+              <Link to="/form" className={classes.link}>
+                Form
+              </Link>
               <Link to="/about-us" className={classes.link}>
                 About us
               </Link>
