@@ -1,8 +1,16 @@
 .card {
-  width: 23%;
+  width: 49%;
   background-color: #fff;
   cursor: pointer;
   overflow: hidden;
+}
+
+.check {
+  box-shadow: 0px 0px 5px 2px #61dafb;
+}
+
+.uncheck {
+  box-shadow: 0px 0px 5px 2px #ff6347;
 }
 
 .picture {
@@ -27,18 +35,55 @@
 .info {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 15px;
   color: #242424;
   font-weight: 500;
   gap: 0.5em;
-}
-
-.price {
   font-size: 20px;
 }
 
-.error {
-  margin: 0 auto;
-  font-size: 20px;
+.sex {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 5%;
+  right: 5%;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  color: black;
+  box-shadow: 0px 3px 3px 0px #424242;
+}
+
+.male {
+  color: #3577f0;
+}
+
+.female {
+  color: #ff497c;
+}
+
+.name {
+  text-align: center;
+  font-size: 24px;
   font-weight: 500;
+  text-transform: capitalize;
+}
+
+.info__block {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.date {
+  color: #1e3050;
+}
+
+.location {
+  color: #ff3c00;
 }

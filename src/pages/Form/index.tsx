@@ -6,6 +6,7 @@ import Form from '../../components/form';
 import { cardConvertation } from '../../utils/cardsConvertations';
 import { PersonsData } from '../../interface/PersonsData';
 import PersonCard from '../../components/personCard';
+import PersonCardsList from '../../components/personCardList';
 
 type FormPageProps = {
   name: string;
@@ -16,6 +17,7 @@ type FormPageState = {
 };
 
 class FormPage extends Component<FormPageProps, FormPageState> {
+  private formRef: React.RefObject<HTMLFormElement> = React.createRef();
   constructor(props: FormPageProps) {
     super(props);
     this.state = { infoCards: [] };
@@ -23,6 +25,7 @@ class FormPage extends Component<FormPageProps, FormPageState> {
 
   handlePersonCard = (personCard: FormFields) => {
     this.setState({ infoCards: [...this.state.infoCards, cardConvertation(personCard)] });
+    this.formRef.current?.reset();
   };
 
   render() {
@@ -32,15 +35,12 @@ class FormPage extends Component<FormPageProps, FormPageState> {
         <main>
           <div className="container">
             <section className={classes.section}>
-              <h1 className="title">Form</h1>
-              <Form getPersonCard={this.handlePersonCard} />
-            </section>
-            <section className={classes.section}>
-              {this.state.infoCards.length !== 0
-                ? this.state.infoCards.map((card, index) => {
-                    return <PersonCard card={card} key={index} />;
-                  })
-                : ''}
+              <Form
+                getPersonCard={this.handlePersonCard}
+                class={classes.form}
+                currentRef={this.formRef}
+              />
+              <PersonCardsList cards={this.state.infoCards} class={classes.list} />
             </section>
           </div>
         </main>

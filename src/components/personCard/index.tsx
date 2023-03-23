@@ -15,17 +15,33 @@ class PersonCard extends Component<CardsProps, CardsState> {
 
   render() {
     return (
-      <li className={classes.card}>
+      <li className={`${classes.card} ${this.props.card.check ? classes.check : classes.uncheck}`}>
         <div className={classes.picture}>
           <img
             src={this.props.card.photo}
             alt={this.props.card.firstName}
             className={classes.img}
           />
+          <span className={classes.sex}>
+            {this.props.card.sex === 'male' ? (
+              <i className={`fa-solid fa-mars ${classes.male}`}></i>
+            ) : (
+              <i className={`fa-solid fa-venus ${classes.female}`}></i>
+            )}
+          </span>
         </div>
         <div className={classes.info}>
-          <span className={classes.price}>${this.props.card.firstName}</span>
-          <span>{this.props.card.secondName}</span>
+          <span
+            className={classes.name}
+          >{`${this.props.card.firstName} ${this.props.card.secondName}`}</span>
+          <span className={classes.info__block}>
+            <i className={`fa-regular fa-calendar ${classes.date}`}></i>
+            {this.props.card.date}
+          </span>
+          <span className={classes.info__block}>
+            <i className={`fa-solid fa-location-pin ${classes.location}`}></i>
+            {this.props.card.country}
+          </span>
         </div>
       </li>
     );

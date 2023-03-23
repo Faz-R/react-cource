@@ -17,6 +17,8 @@ type FormState = {
 
 type FormProps = {
   getPersonCard: (personCard: FormFields) => void;
+  class: string;
+  currentRef: React.RefObject<HTMLFormElement>;
 };
 
 class Form extends Component<FormProps, FormState> {
@@ -43,7 +45,11 @@ class Form extends Component<FormProps, FormState> {
 
   render() {
     return (
-      <form className={classes.form} onSubmit={this.handleSubmit}>
+      <form
+        className={`${classes.form} ${this.props.class}`}
+        onSubmit={this.handleSubmit}
+        ref={this.props.currentRef}
+      >
         <div className={classes.info__row}>
           <InputText name="First name" currentRef={this.formFields.firstName} />
           <InputText name="Second name" currentRef={this.formFields.secondName} />

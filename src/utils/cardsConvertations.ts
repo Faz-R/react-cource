@@ -4,7 +4,9 @@ export function cardConvertation(personCard: FormFields) {
   return {
     firstName: personCard.firstName.current?.value,
     secondName: personCard.secondName.current?.value,
-    date: personCard.date.current?.value.toString(),
+    date: personCard.date.current
+      ? new Date(personCard.date.current.value).toLocaleDateString().toString()
+      : '',
     country: personCard.country.current?.value,
     sex: personCard.female.current?.checked ? 'female' : 'male',
     photo:
