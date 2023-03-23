@@ -1,17 +1,17 @@
 import React, { Component, RefObject } from 'react';
 import classes from './index.module.css';
 
-type InputState = {
+type FileState = {
   input: RefObject<string>;
 };
 
-type InputProps = {
+type FileProps = {
   name: string;
   currentRef: React.RefObject<HTMLInputElement>;
 };
 
-class InputText extends Component<InputProps, InputState> {
-  constructor(props: InputProps) {
+class File extends Component<FileProps, FileState> {
+  constructor(props: FileProps) {
     super(props);
   }
 
@@ -19,10 +19,10 @@ class InputText extends Component<InputProps, InputState> {
     return (
       <label className={classes.label}>
         {this.props.name}
-        <input type="text" ref={this.props.currentRef} className={classes.input} />
+        <input type="file" ref={this.props.currentRef} className={classes.input} />
       </label>
     );
   }
 }
 
-export default InputText;
+export default File;

@@ -17,7 +17,11 @@ class Card extends Component<CardsProps, CardsState> {
     return (
       <li className={classes.card}>
         <div className={classes.picture}>
-          <img src={this.props.card.image} alt={this.props.card.title} className={classes.img} />
+          <img
+            src={this.props.card.thumbnail}
+            alt={this.props.card.title}
+            className={classes.img}
+          />
         </div>
         <div className={classes.info}>
           <span className={classes.price}>${this.props.card.price}</span>
@@ -26,10 +30,10 @@ class Card extends Component<CardsProps, CardsState> {
             <div className={classes.stars}>
               <div
                 className={classes.stars__active}
-                style={{ width: `${(100 * this.props.card.rating.rate) / 5}%` }}
+                style={{ width: `${(100 * this.props.card.rating) / 5}%` }}
               ></div>
             </div>
-            <div className={classes.rating__text}>{this.props.card.rating.rate}</div>
+            <div className={classes.rating__text}>{this.props.card.rating}</div>
           </div>
         </div>
       </li>

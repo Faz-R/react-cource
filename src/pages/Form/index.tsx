@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 import Header from '../../components/header';
-import InputText from '../../components/UI/inputText';
-import Date from '../../components/UI/date';
 import classes from './index.module.css';
-import Select from '../../components/UI/select';
-import { countries } from '../../utils/countries';
+import { FormFields } from '../../interface/FormFields';
+import Form from '../../components/form';
 
-class Form extends Component {
+type FormPageProps = {
+  name: string;
+};
+
+class FormPage extends Component<FormPageProps, never> {
+  private formFields: FormFields = {
+    firstName: React.createRef(),
+    secondName: React.createRef(),
+    date: React.createRef(),
+    country: React.createRef(),
+    male: React.createRef(),
+    female: React.createRef(),
+    photo: React.createRef(),
+    check: React.createRef(),
+  };
+
+  constructor(props: FormPageProps) {
+    super(props);
+  }
+
   render() {
     return (
       <>
@@ -15,19 +32,7 @@ class Form extends Component {
           <div className="container">
             <section className={classes.section}>
               <h1 className="title">Form</h1>
-              <form className={classes.form}>
-                <div className={classes.info}>
-                  <InputText name="Name" />
-                  <InputText name="Second name" />
-                </div>
-                <div className={classes.info}>
-                  <Date name="Date" />
-                  <Select name="Country" options={countries} />
-                </div>
-                <input type="radio" />
-                <input type="checkbox" />
-                <input type="file" />
-              </form>
+              <Form />
             </section>
           </div>
         </main>
@@ -36,4 +41,4 @@ class Form extends Component {
   }
 }
 
-export default Form;
+export default FormPage;
