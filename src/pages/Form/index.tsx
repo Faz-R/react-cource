@@ -3,26 +3,27 @@ import Header from '../../components/header';
 import classes from './index.module.css';
 import { FormFields } from '../../interface/FormFields';
 import Form from '../../components/form';
+import { cardConvertation } from '../../utils/cardsConvertations';
+import { PersonsData } from '../../interface/PersonsData';
+import PersonCard from '../../components/personCard';
 
 type FormPageProps = {
   name: string;
 };
 
-class FormPage extends Component<FormPageProps, never> {
-  private formFields: FormFields = {
-    firstName: React.createRef(),
-    secondName: React.createRef(),
-    date: React.createRef(),
-    country: React.createRef(),
-    male: React.createRef(),
-    female: React.createRef(),
-    photo: React.createRef(),
-    check: React.createRef(),
-  };
+type FormPageState = {
+  infoCards: PersonsData[];
+};
 
+class FormPage extends Component<FormPageProps, FormPageState> {
   constructor(props: FormPageProps) {
     super(props);
+    this.state = { infoCards: [] };
   }
+
+  handlePersonCard = (personCard: FormFields) => {
+    this.setState({ infoCards: [...this.state.infoCards, cardConvertation(personCard)] });
+  };
 
   render() {
     return (
@@ -32,7 +33,14 @@ class FormPage extends Component<FormPageProps, never> {
           <div className="container">
             <section className={classes.section}>
               <h1 className="title">Form</h1>
-              <Form />
+              <Form getPersonCard={this.handlePersonCard} />
+            </section>
+            <section className={classes.section}>
+              {this.state.infoCards.length !== 0
+                ? this.state.infoCards.map((card, index) => {
+                    return <PersonCard card={card} key={index} />;
+                  })
+                : ''}
             </section>
           </div>
         </main>

@@ -11,14 +11,15 @@ import Date from '../UI/date';
 import File from '../UI/file';
 import { FormFields } from '../../interface/FormFields';
 
-type CardsState = {
-  cards: ICard[];
-  error: string;
+type FormState = {
+  info: FormFields;
 };
 
-type CardsProps = Record<string, never>;
+type FormProps = {
+  getPersonCard: (personCard: FormFields) => void;
+};
 
-class Form extends Component<CardsProps, CardsState> {
+class Form extends Component<FormProps, FormState> {
   private formFields: FormFields = {
     firstName: React.createRef(),
     secondName: React.createRef(),
@@ -30,16 +31,14 @@ class Form extends Component<CardsProps, CardsState> {
     check: React.createRef(),
   };
 
-  constructor(props: CardsProps) {
+  constructor(props: FormProps) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    alert(
-      `firstName: ${this.formFields.firstName.current?.value}, secondName: ${this.formFields.secondName.current?.value}, date: ${this.formFields.date.current?.value}, male: ${this.formFields.male.current?.checked}, female: ${this.formFields.female.current?.checked}, file: ${this.formFields.photo.current?.value}`
-    );
+    this.props.getPersonCard(this.formFields);
   }
 
   render() {
