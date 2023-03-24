@@ -4,6 +4,7 @@ import classes from './index.module.css';
 type ButtonProps = {
   name: string;
   type: 'button' | 'submit';
+  class?: string;
 };
 
 class Button extends Component<ButtonProps, never> {
@@ -12,7 +13,13 @@ class Button extends Component<ButtonProps, never> {
   }
 
   render() {
-    return <input type={this.props.type} className={classes.button} value={this.props.name} />;
+    return (
+      <input
+        type={this.props.type}
+        className={`${classes.button} ${this.props.class}`}
+        value={this.props.name}
+      />
+    );
   }
 }
 

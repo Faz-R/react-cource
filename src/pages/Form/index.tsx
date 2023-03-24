@@ -5,7 +5,6 @@ import { FormFields } from '../../interface/FormFields';
 import Form from '../../components/form';
 import { cardConvertation } from '../../utils/cardsConvertations';
 import { PersonsData } from '../../interface/PersonsData';
-import PersonCard from '../../components/personCard';
 import PersonCardsList from '../../components/personCardList';
 
 type FormPageProps = {

@@ -9,6 +9,7 @@ type SelectProps = {
   name: string;
   options: string[];
   currentRef: React.RefObject<HTMLSelectElement>;
+  error?: string;
 };
 
 class Select extends Component<SelectProps, SelectState> {
@@ -29,6 +30,7 @@ class Select extends Component<SelectProps, SelectState> {
             );
           })}
         </select>
+        <span className={classes.error}>{this.props.error}</span>
       </label>
     );
   }

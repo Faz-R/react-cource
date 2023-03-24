@@ -1,9 +1,11 @@
 .label {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 50%;
   gap: 1em;
   font-size: 20px;
+  padding-bottom: 30px;
   box-sizing: border-box;
 }
 
@@ -20,4 +22,15 @@
 .select:focus {
   outline: none;
   border: 2px solid #61dafb;
+}
+
+.error {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 300;
+  position: absolute;
+  bottom: 0;
+  color: tomato;
 }

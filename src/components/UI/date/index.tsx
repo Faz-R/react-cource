@@ -8,6 +8,7 @@ type DateState = {
 type DateProps = {
   name: string;
   currentRef: React.RefObject<HTMLInputElement>;
+  error?: string;
 };
 
 class Date extends Component<DateProps, DateState> {
@@ -20,6 +21,7 @@ class Date extends Component<DateProps, DateState> {
       <label className={classes.label}>
         {this.props.name}
         <input type="date" ref={this.props.currentRef} className={classes.input} />
+        <span className={classes.error}>{this.props.error}</span>
       </label>
     );
   }

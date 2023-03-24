@@ -16,3 +16,8 @@
   flex-wrap: wrap;
   width: 58%;
 }
+
+.message {
+  color: red;
+  transition: 1s;
+}
