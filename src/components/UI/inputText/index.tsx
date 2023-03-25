@@ -1,17 +1,13 @@
 import React, { Component, RefObject } from 'react';
 import classes from './index.module.css';
 
-type InputState = {
-  input: RefObject<string>;
-};
-
 type InputProps = {
   name: string;
   currentRef: React.RefObject<HTMLInputElement>;
   error?: string;
 };
 
-class InputText extends Component<InputProps, InputState> {
+class InputText extends Component<InputProps, never> {
   constructor(props: InputProps) {
     super(props);
   }

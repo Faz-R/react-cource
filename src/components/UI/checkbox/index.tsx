@@ -1,9 +1,5 @@
-import React, { Component, RefObject } from 'react';
+import React, { Component } from 'react';
 import classes from './index.module.css';
-
-type CheckboxState = {
-  input: RefObject<string>;
-};
 
 type CheckboxProps = {
   name: string;
@@ -11,7 +7,7 @@ type CheckboxProps = {
   checked?: boolean;
 };
 
-class Checkbox extends Component<CheckboxProps, CheckboxState> {
+class Checkbox extends Component<CheckboxProps, never> {
   constructor(props: CheckboxProps) {
     super(props);
   }

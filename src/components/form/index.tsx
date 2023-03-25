@@ -41,14 +41,7 @@ class Form extends Component<FormProps, FormState> {
       this.validate(name, data);
     });
 
-    if (
-      this.state.valid.country &&
-      this.state.valid.date &&
-      this.state.valid.firstName &&
-      this.state.valid.photo &&
-      this.state.valid.secondName &&
-      this.state.valid.sex
-    ) {
+    if (!Object.values(this.state.valid).some((e) => e == false)) {
       this.setState({ showMessage: true });
       this.props.getPersonCard(this.formFields);
 
@@ -81,13 +74,12 @@ class Form extends Component<FormProps, FormState> {
         fieldsError.secondName = fieldsValid.secondName ? '' : 'Enter 3 or more characters';
         break;
       case 'date':
-        console.log(field.current?.value.length);
         fieldsValid.date =
           field.current !== null &&
           field.current.value.length !== 0 &&
           field.current.value.length == 10 &&
-          +field.current.value.slice(0, 4) < ACTUAL__DATE;
-        fieldsError.date = fieldsValid.date ? '' : 'Enter a date < current date';
+          +field.current.value.slice(0, 4) <= ACTUAL__DATE;
+        fieldsError.date = fieldsValid.date ? '' : 'Enter a date <= current date';
         break;
       case 'country':
         fieldsValid.country = field.current !== null && field.current.value.length !== 0;
@@ -143,7 +135,11 @@ class Form extends Component<FormProps, FormState> {
           />
         </div>
         <div className={classes.info__row}>
-          <Date name="Date" currentRef={this.formFields.date} error={this.state.errors.date} />
+          <Date
+            name="Date of Birth"
+            currentRef={this.formFields.date}
+            error={this.state.errors.date}
+          />
           <Select
             name="Country"
             options={countries}

@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import classes from './index.module.css';
 
-type DateState = {
-  input: string;
-};
-
 type DateProps = {
   name: string;
   currentRef: React.RefObject<HTMLInputElement>;
   error?: string;
 };
 
-class Date extends Component<DateProps, DateState> {
+class Date extends Component<DateProps, never> {
   constructor(props: DateProps) {
     super(props);
   }

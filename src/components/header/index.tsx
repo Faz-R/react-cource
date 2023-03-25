@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classes from './index.module.css';
 
 type HeaderProps = {
   location: string;
 };
-
-const setActive = ({ isActive }: { isActive: boolean }) =>
-  isActive ? classes.active : classes.link;
 
 class Header extends Component<HeaderProps, never> {
   constructor(props: HeaderProps) {
@@ -21,15 +18,15 @@ class Header extends Component<HeaderProps, never> {
           <div className="container">
             <div className={classes.navigation}>
               <div className={`${classes.link} ${classes.current}`}>{this.props.location}</div>
-              <NavLink to="/" className={setActive}>
+              <Link to="/" className={classes.link}>
                 Home
-              </NavLink>
-              <NavLink to="/form" className={setActive}>
+              </Link>
+              <Link to="/form" className={classes.link}>
                 Form
-              </NavLink>
-              <NavLink to="/about-us" className={setActive}>
+              </Link>
+              <Link to="/about-us" className={classes.link}>
                 About us
-              </NavLink>
+              </Link>
             </div>
           </div>
         </header>

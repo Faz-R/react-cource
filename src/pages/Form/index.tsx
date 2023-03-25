@@ -7,9 +7,7 @@ import { cardConvertation } from '../../utils/cardsConvertations';
 import { PersonsData } from '../../interface/PersonsData';
 import PersonCardsList from '../../components/personCardList';
 
-type FormPageProps = {
-  name: string;
-};
+type FormPageProps = Record<string, never>;
 
 type FormPageState = {
   infoCards: PersonsData[];
@@ -33,6 +31,7 @@ class FormPage extends Component<FormPageProps, FormPageState> {
         <Header location="Form" />
         <main>
           <div className="container">
+            <h1 className="title">Form</h1>
             <section className={classes.section}>
               <Form
                 getPersonCard={this.handlePersonCard}

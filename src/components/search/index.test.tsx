@@ -11,8 +11,9 @@ describe('Search', () => {
     expect(screen.getByPlaceholderText('Search...')).toBeInTheDocument();
   });
 
-  it('Input search field is work', () => {
+  it('Input search field is work', async () => {
     render(<Search />);
-    userEvent.type(screen.getByRole('searchbox'), 'React');
+    await userEvent.type(screen.getByRole('searchbox'), 'React');
+    expect(screen.getByRole('searchbox')).toHaveValue('React');
   });
 });

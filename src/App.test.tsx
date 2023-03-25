@@ -41,4 +41,16 @@ describe('App', () => {
       })
     ).toHaveTextContent(/404/i);
   });
+  test('Renders form if invalid path', () => {
+    render(
+      <MemoryRouter initialEntries={['/form']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+      })
+    ).toHaveTextContent(/form/i);
+  });
 });

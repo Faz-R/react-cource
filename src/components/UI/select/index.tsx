@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import classes from './index.module.css';
 
-type SelectState = {
-  value: string;
-};
-
 type SelectProps = {
   name: string;
   options: string[];
@@ -12,7 +8,7 @@ type SelectProps = {
   error?: string;
 };
 
-class Select extends Component<SelectProps, SelectState> {
+class Select extends Component<SelectProps, never> {
   constructor(props: SelectProps) {
     super(props);
   }

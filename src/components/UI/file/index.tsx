@@ -1,9 +1,5 @@
-import React, { Component, RefObject } from 'react';
+import React, { Component } from 'react';
 import classes from './index.module.css';
-
-type FileState = {
-  input: RefObject<string>;
-};
 
 type FileProps = {
   name: string;
@@ -11,7 +7,7 @@ type FileProps = {
   error?: string;
 };
 
-class File extends Component<FileProps, FileState> {
+class File extends Component<FileProps, never> {
   constructor(props: FileProps) {
     super(props);
   }

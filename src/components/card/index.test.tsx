@@ -6,14 +6,15 @@ describe('Card', () => {
   const props = {
     id: 1,
     title: 'test',
-    price: 20,
     description: 'description',
-    category: 'category',
-    image: 'image',
-    rating: {
-      rate: 5,
-      count: 12,
-    },
+    price: 20,
+    discountPercentage: 10,
+    rating: 5,
+    stock: 30,
+    brand: 'brand',
+    category: 'categiory',
+    thumbnail: 'image',
+    images: ['first', 'second', 'third'],
   };
   it('Render card', async () => {
     render(<Card card={props} />);
