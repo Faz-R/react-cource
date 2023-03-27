@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import classes from './index.module.css';
-import { ICard } from '../../interface/ICard';
-import Card from '../card';
-import getCards from '../../utils/getCards';
 import { PersonsData } from '../../interface/PersonsData';
 import PersonCard from '../personCard';
 

@@ -101,6 +101,10 @@ class Form extends Component<FormProps, FormState> {
         fieldsValid.photo = field.current !== null && field.current.value.length !== 0;
         fieldsError.photo = fieldsValid.photo ? '' : 'Upload a photo';
         break;
+      case 'check':
+        fieldsValid.check = field.current !== null && (field.current as HTMLInputElement).checked;
+        fieldsError.check = fieldsValid.check ? '' : 'Accept terms';
+        break;
       default:
         break;
     }
@@ -169,6 +173,7 @@ class Form extends Component<FormProps, FormState> {
           name="All requirements are met according to the task."
           checked={true}
           currentRef={this.formFields.check}
+          error={this.state.errors.check}
         />
         <Button name={'Submit'} type={'submit'} class={classes.button} />
       </form>

@@ -1,4 +1,4 @@
-import React, { Component, RefObject } from 'react';
+import { Component } from 'react';
 import classes from './index.module.css';
 
 type ButtonProps = {
