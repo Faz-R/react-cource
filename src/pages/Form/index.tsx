@@ -1,44 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component, useRef, useState } from 'react';
 import classes from './index.module.css';
-import { FormFields } from '../../interface/FormFields';
 import Form from '../../components/form';
 import { cardConvertation } from '../../utils/cardsConvertations';
 import { PersonsData } from '../../interface/PersonsData';
 import PersonCardsList from '../../components/personCardList';
+import { FormFields } from '../../components/form/interface';
 
-type FormPageProps = Record<string, never>;
+const FormPage = () => {
+  const [infoCards, setInfoCards] = useState([] as PersonsData[]);
+  const formRef = useRef(null);
 
-type FormPageState = {
-  infoCards: PersonsData[];
-};
-
-class FormPage extends Component<FormPageProps, FormPageState> {
-  private formRef: React.RefObject<HTMLFormElement> = React.createRef();
-  constructor(props: FormPageProps) {
-    super(props);
-    this.state = { infoCards: [] };
-  }
-
-  handlePersonCard = (personCard: FormFields) => {
-    this.setState({ infoCards: [...this.state.infoCards, cardConvertation(personCard)] });
-    this.formRef.current?.reset();
+  const handlePersonCard = (personCard: FormFields) => {
+    setInfoCards([...infoCards, cardConvertation(personCard)]);
+    formRef.current;
   };
 
-  render() {
-    return (
-      <>
-        <h1 className="title">Form</h1>
-        <section className={classes.section}>
-          <Form
-            getPersonCard={this.handlePersonCard}
-            class={classes.form}
-            currentRef={this.formRef}
-          />
-          <PersonCardsList cards={this.state.infoCards} class={classes.list} />
-        </section>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <h1 className="title">Form</h1>
+      <section className={classes.section}>
+        <Form getPersonCard={handlePersonCard} classForm={classes.form} currentRef={formRef} />
+        <PersonCardsList cards={infoCards} class={classes.list} />
+      </section>
+    </>
+  );
+};
 
 export default FormPage;

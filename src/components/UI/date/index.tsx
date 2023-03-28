@@ -1,26 +1,20 @@
-import React, { Component } from 'react';
+import React, { MutableRefObject } from 'react';
 import classes from './index.module.css';
 
 type DateProps = {
   name: string;
-  currentRef: React.RefObject<HTMLInputElement>;
+  currentRef: MutableRefObject<HTMLInputElement | null>;
   error?: string;
 };
 
-class Date extends Component<DateProps, never> {
-  constructor(props: DateProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <label className={classes.label}>
-        {this.props.name}
-        <input type="date" ref={this.props.currentRef} className={classes.input} />
-        <span className={classes.error}>{this.props.error}</span>
-      </label>
-    );
-  }
-}
+const Date = ({ name, currentRef, error = '' }: DateProps) => {
+  return (
+    <label className={classes.label}>
+      {name}
+      <input type="date" ref={currentRef} className={classes.input} />
+      <span className={classes.error}>{error}</span>
+    </label>
+  );
+};
 
 export default Date;

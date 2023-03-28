@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, MutableRefObject, useEffect, useRef, useState } from 'react';
 import classes from './index.module.css';
 import { countries } from '../../utils/countries';
 import Button from '../UI/button';
@@ -8,55 +8,60 @@ import Radio from '../UI/radio';
 import Select from '../UI/select';
 import Date from '../UI/date';
 import File from '../UI/file';
-import { FormFields } from '../../interface/FormFields';
-import { formErrors, FormProps, FormState, formValid } from './interface';
+import { formErrors, FormFields, formValid } from './interface';
 import { ACTUAL__DATE, TEXT__REGEXP } from './constant';
 
-class Form extends Component<FormProps, FormState> {
-  private formFields: FormFields = {
-    firstName: React.createRef(),
-    secondName: React.createRef(),
-    date: React.createRef(),
-    country: React.createRef(),
-    male: React.createRef(),
-    female: React.createRef(),
-    photo: React.createRef(),
-    check: React.createRef(),
+export type FormState = {
+  info: FormFields;
+  showMessage: boolean;
+  errors: formErrors;
+  valid: formValid;
+};
+
+export type FormProps = {
+  getPersonCard: (personCard: FormFields) => void;
+  classForm: string;
+  currentRef: MutableRefObject<HTMLFormElement | null>;
+};
+
+const Form = ({ getPersonCard, classForm, currentRef }: FormProps) => {
+  const [message, setMessage] = useState(false);
+  const [errors, setErrors] = useState({} as formErrors);
+  const [valid, setValid] = useState({} as formValid);
+
+  const formFields: FormFields = {
+    firstName: useRef(null),
+    secondName: useRef(null),
+    date: useRef(null),
+    country: useRef(null),
+    male: useRef(null),
+    female: useRef(null),
+    photo: useRef(null),
+    check: useRef(null),
   };
 
-  constructor(props: FormProps) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      info: {} as FormFields,
-      showMessage: false,
-      errors: {} as formErrors,
-      valid: {} as formValid,
-    };
-  }
-
-  handleSubmit(event: React.FormEvent) {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    Object.entries(this.formFields).forEach(([name, data]) => {
-      this.validate(name, data);
+    Object.entries(formFields).forEach(([name, data]) => {
+      validate(name, data);
     });
 
-    if (!Object.values(this.state.valid).some((e) => e == false)) {
-      this.setState({ showMessage: true });
-      this.props.getPersonCard(this.formFields);
+    if (!Object.values(valid).some((e) => e == false)) {
+      setMessage(true);
+      getPersonCard(formFields);
 
       setTimeout(() => {
-        this.setState({ showMessage: false });
+        setMessage(false);
       }, 3000);
     }
-  }
+  };
 
-  validate(
+  const validate = (
     fieldName: string,
     field: React.RefObject<HTMLInputElement> | React.RefObject<HTMLSelectElement>
-  ) {
-    const fieldsError = this.state.errors;
-    const fieldsValid = this.state.valid;
+  ) => {
+    const fieldsError = errors;
+    const fieldsValid = valid;
 
     switch (fieldName) {
       case 'firstName':
@@ -105,75 +110,52 @@ class Form extends Component<FormProps, FormState> {
         break;
     }
 
-    this.setState({ errors: fieldsError, valid: fieldsValid });
-  }
+    setErrors(JSON.parse(JSON.stringify(fieldsError)));
+    setValid(JSON.parse(JSON.stringify(fieldsValid)));
+  };
 
-  render() {
-    return (
-      <form
-        className={`${classes.form} ${this.props.class}`}
-        onSubmit={this.handleSubmit}
-        ref={this.props.currentRef}
-      >
-        {this.state.showMessage ? (
-          <div className={classes.message}>
-            <span className={classes.message__text}>Information has been saved</span>
-          </div>
-        ) : (
-          ''
-        )}
-        <div className={classes.info__row}>
-          <InputText
-            name="First name"
-            currentRef={this.formFields.firstName}
-            error={this.state.errors.firstName}
-          />
-          <InputText
-            name="Second name"
-            currentRef={this.formFields.secondName}
-            error={this.state.errors.secondName}
-          />
+  return (
+    <form className={`${classes.form} ${classForm}`} onSubmit={handleSubmit} ref={currentRef}>
+      {message ? (
+        <div className={classes.message}>
+          <span className={classes.message__text}>Information has been saved</span>
         </div>
-        <div className={classes.info__row}>
-          <Date
-            name="Date of Birth"
-            currentRef={this.formFields.date}
-            error={this.state.errors.date}
-          />
-          <Select
-            name="Country"
-            options={countries}
-            currentRef={this.formFields.country}
-            error={this.state.errors.country}
-          />
-        </div>
-        <div className={classes.info__column}>
-          <span className={classes.block__title}>Gender</span>
-          <div className={classes.sex}>
-            <Radio label={'Male'} name={'sex'} id={'male'} currentRef={this.formFields.male} />
-            <Radio
-              label={'Female'}
-              name={'sex'}
-              id={'female'}
-              currentRef={this.formFields.female}
-            />
-            <span className={classes.sex__error}>{this.state.errors.sex}</span>
-          </div>
-        </div>
-        <File
-          name={'Add photo'}
-          currentRef={this.formFields.photo}
-          error={this.state.errors.photo}
+      ) : (
+        ''
+      )}
+      <div className={classes.info__row}>
+        <InputText name="First name" currentRef={formFields.firstName} error={errors.firstName} />
+        <InputText
+          name="Second name"
+          currentRef={formFields.secondName}
+          error={errors.secondName}
         />
-        <Checkbox
-          name="All requirements are met according to the task."
-          checked={true}
-          currentRef={this.formFields.check}
+      </div>
+      <div className={classes.info__row}>
+        <Date name="Date of Birth" currentRef={formFields.date} error={errors.date} />
+        <Select
+          name="Country"
+          options={countries}
+          currentRef={formFields.country}
+          error={errors.country}
         />
-        <Button name={'Submit'} type={'submit'} class={classes.button} />
-      </form>
-    );
-  }
-}
+      </div>
+      <div className={classes.info__column}>
+        <span className={classes.block__title}>Gender</span>
+        <div className={classes.sex}>
+          <Radio label={'Male'} name={'sex'} id={'male'} currentRef={formFields.male} />
+          <Radio label={'Female'} name={'sex'} id={'female'} currentRef={formFields.female} />
+          <span className={classes.sex__error}>{errors.sex}</span>
+        </div>
+      </div>
+      <File name={'Add photo'} currentRef={formFields.photo} error={errors.photo} />
+      <Checkbox
+        name="All requirements are met according to the task."
+        currentRef={formFields.check}
+      />
+      <Button name={'Submit'} type={'submit'} classElement={classes.button} />
+    </form>
+  );
+};
 
 export default Form;

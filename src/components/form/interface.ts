@@ -1,4 +1,4 @@
-import { FormFields } from '../../interface/FormFields';
+import { MutableRefObject } from 'react';
 
 export interface formErrors {
   firstName: string;
@@ -20,15 +20,13 @@ export interface formValid {
   check: boolean;
 }
 
-export type FormState = {
-  info: FormFields;
-  showMessage: boolean;
-  errors: formErrors;
-  valid: formValid;
-};
-
-export type FormProps = {
-  getPersonCard: (personCard: FormFields) => void;
-  class: string;
-  currentRef: React.RefObject<HTMLFormElement>;
-};
+export interface FormFields {
+  firstName: MutableRefObject<HTMLInputElement | null>;
+  secondName: MutableRefObject<HTMLInputElement | null>;
+  date: MutableRefObject<HTMLInputElement | null>;
+  country: MutableRefObject<HTMLSelectElement | null>;
+  male: MutableRefObject<HTMLInputElement | null>;
+  female: MutableRefObject<HTMLInputElement | null>;
+  photo: MutableRefObject<HTMLInputElement | null>;
+  check: MutableRefObject<HTMLInputElement | null>;
+}

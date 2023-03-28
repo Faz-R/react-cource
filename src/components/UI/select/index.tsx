@@ -1,35 +1,29 @@
-import React, { Component } from 'react';
+import React, { MutableRefObject } from 'react';
 import classes from './index.module.css';
 
 type SelectProps = {
   name: string;
   options: string[];
-  currentRef: React.RefObject<HTMLSelectElement>;
+  currentRef: MutableRefObject<HTMLSelectElement | null>;
   error?: string;
 };
 
-class Select extends Component<SelectProps, never> {
-  constructor(props: SelectProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <label className={classes.label}>
-        {this.props.name}
-        <select ref={this.props.currentRef} className={classes.select}>
-          {this.props.options.map((option) => {
-            return (
-              <option value={option} className={classes.option} key={option}>
-                {option}
-              </option>
-            );
-          })}
-        </select>
-        <span className={classes.error}>{this.props.error}</span>
-      </label>
-    );
-  }
-}
+const Select = ({ name, options, currentRef, error = '' }: SelectProps) => {
+  return (
+    <label className={classes.label}>
+      {name}
+      <select ref={currentRef} className={classes.select}>
+        {options.map((option) => {
+          return (
+            <option value={option} className={classes.option} key={option}>
+              {option}
+            </option>
+          );
+        })}
+      </select>
+      <span className={classes.error}>{error}</span>
+    </label>
+  );
+};
 
 export default Select;

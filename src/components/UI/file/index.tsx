@@ -1,28 +1,22 @@
-import React, { Component } from 'react';
+import React, { MutableRefObject } from 'react';
 import classes from './index.module.css';
 
 type FileProps = {
   name: string;
-  currentRef: React.RefObject<HTMLInputElement>;
+  currentRef: MutableRefObject<HTMLInputElement | null>;
   error?: string;
 };
 
-class File extends Component<FileProps, never> {
-  constructor(props: FileProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className={classes.wrapper}>
-        <label className={classes.label}>
-          {this.props.name}
-          <input type="file" ref={this.props.currentRef} className={classes.input} />
-        </label>
-        <span className={classes.error}>{this.props.error}</span>
-      </div>
-    );
-  }
-}
+const File = ({ name, currentRef, error = '' }: FileProps) => {
+  return (
+    <div className={classes.wrapper}>
+      <label className={classes.label}>
+        {name}
+        <input type="file" ref={currentRef} className={classes.input} />
+      </label>
+      <span className={classes.error}>{error}</span>
+    </div>
+  );
+};
 
 export default File;

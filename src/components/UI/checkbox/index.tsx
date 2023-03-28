@@ -1,25 +1,20 @@
-import React, { Component } from 'react';
+import React, { MutableRefObject } from 'react';
 import classes from './index.module.css';
 
 type CheckboxProps = {
   name: string;
-  currentRef: React.RefObject<HTMLInputElement>;
-  checked?: boolean;
+  currentRef: MutableRefObject<HTMLInputElement | null>;
+  // checked?: boolean;
+  // onChange: (e: boolean, i: string) => void;
 };
 
-class Checkbox extends Component<CheckboxProps, never> {
-  constructor(props: CheckboxProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <label className={classes.label}>
-        <input type="checkbox" ref={this.props.currentRef} className={classes.input} />
-        {this.props.name}
-      </label>
-    );
-  }
-}
+const Checkbox = ({ name, currentRef }: CheckboxProps) => {
+  return (
+    <label className={classes.label}>
+      <input type="checkbox" ref={currentRef} className={classes.input} />
+      {name}
+    </label>
+  );
+};
 
 export default Checkbox;
