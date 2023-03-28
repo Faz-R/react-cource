@@ -1,49 +1,32 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './index.module.css';
 
-type SearchState = {
-  search: string;
-};
+const Search = () => {
+  const [search, setSearh] = useState(localStorage.getItem('search') ?? '');
 
-type SearchProps = Record<string, never>;
+  useEffect(() => {
+    localStorage.setItem('search', search);
+  }, [search]);
 
-class Search extends Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
-    super(props);
-    this.state = { search: localStorage.getItem('search') ?? '' };
-  }
-
-  componentDidMount() {
-    this.setState({ search: localStorage.getItem('search') ?? '' });
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem('search', this.state.search);
-  }
-
-  changeSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    this.setState({
-      search: e.target.value,
-    });
+  const changeSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setSearh(e.target.value);
   };
 
-  render() {
-    return (
-      <form className={classes.form}>
-        <input
-          type="search"
-          placeholder="Search..."
-          value={this.state.search}
-          onChange={this.changeSearch}
-          className={classes.search}
-          name="search"
-        />
-        <button type="button" className={classes.button}>
-          Search
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form className={classes.form}>
+      <input
+        type="search"
+        placeholder="Search..."
+        value={search}
+        onChange={changeSearch}
+        className={classes.search}
+        name="search"
+      />
+      <button type="button" className={classes.button}>
+        Search
+      </button>
+    </form>
+  );
+};
 
 export default Search;

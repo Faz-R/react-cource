@@ -1,38 +1,34 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import classes from './index.module.css';
 
-type HeaderProps = {
-  location: string;
-};
+const Header = () => {
+  const setActive = ({ isActive }: { isActive: boolean }) =>
+    isActive ? `${classes.link} ${classes.active}` : `${classes.link}`;
 
-class Header extends Component<HeaderProps, never> {
-  constructor(props: HeaderProps) {
-    super(props);
-  }
+  const location = useLocation();
 
-  render() {
-    return (
-      <>
-        <header className={classes.header}>
-          <div className="container">
-            <div className={classes.navigation}>
-              <div className={`${classes.link} ${classes.current}`}>{this.props.location}</div>
-              <Link to="/" className={classes.link}>
-                Home
-              </Link>
-              <Link to="/form" className={classes.link}>
-                Form
-              </Link>
-              <Link to="/about-us" className={classes.link}>
-                About us
-              </Link>
+  return (
+    <>
+      <header className={classes.header}>
+        <div className="container">
+          <div className={classes.navigation}>
+            <div className={`${classes.link} ${classes.current}`}>
+              {location.pathname.slice(1).replace('-', ' ') || 'Home'}
             </div>
+            <NavLink to="/" className={setActive}>
+              Home
+            </NavLink>
+            <NavLink to="/form" className={setActive}>
+              Form
+            </NavLink>
+            <NavLink to="/about-us" className={setActive}>
+              About us
+            </NavLink>
           </div>
-        </header>
-      </>
-    );
-  }
-}
+        </div>
+      </header>
+    </>
+  );
+};
 
 export default Header;

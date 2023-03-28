@@ -1,45 +1,34 @@
-import React, { Component } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './index.module.css';
 import { ICard } from '../../interface/ICard';
 import Card from '../card';
 import getCards from '../../utils/getCards';
 
-type CardsState = {
-  cards: ICard[];
-  error: string;
-};
+const Cards = () => {
+  const [cards, setCards] = useState<ICard[]>([]);
+  const [error, setError] = useState<string>('');
 
-type CardsProps = Record<string, never>;
-
-class Cards extends Component<CardsProps, CardsState> {
-  constructor(props: CardsProps) {
-    super(props);
-    this.state = { cards: [], error: '' };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     getCards()
-      .then((items) => this.setState({ cards: items }))
+      .then((items) => setCards(items))
       .catch((err) => {
-        this.setState({ error: `Sorry! An error has occurred: ${err.message}` });
+        setError(`Sorry! An error has occurred: ${err.message}`);
       });
-  }
+  });
 
-  render() {
-    return (
-      <section className={classes.section}>
-        {this.state.cards.length !== 0 ? (
-          <ul className={classes.cards}>
-            {this.state.cards.map((card) => {
-              return <Card card={card} key={card.id} />;
-            })}
-          </ul>
-        ) : (
-          <span className={classes.error}>{this.state.error}</span>
-        )}
-      </section>
-    );
-  }
-}
+  return (
+    <section className={classes.section}>
+      {cards.length !== 0 ? (
+        <ul className={classes.cards}>
+          {cards.map((card) => {
+            return <Card card={card} key={card.id} />;
+          })}
+        </ul>
+      ) : (
+        <span className={classes.error}>{error}</span>
+      )}
+    </section>
+  );
+};
 
 export default Cards;

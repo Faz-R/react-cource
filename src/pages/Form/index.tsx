@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from '../../components/header';
 import classes from './index.module.css';
 import { FormFields } from '../../interface/FormFields';
 import Form from '../../components/form';
@@ -28,20 +27,15 @@ class FormPage extends Component<FormPageProps, FormPageState> {
   render() {
     return (
       <>
-        <Header location="Form" />
-        <main>
-          <div className="container">
-            <h1 className="title">Form</h1>
-            <section className={classes.section}>
-              <Form
-                getPersonCard={this.handlePersonCard}
-                class={classes.form}
-                currentRef={this.formRef}
-              />
-              <PersonCardsList cards={this.state.infoCards} class={classes.list} />
-            </section>
-          </div>
-        </main>
+        <h1 className="title">Form</h1>
+        <section className={classes.section}>
+          <Form
+            getPersonCard={this.handlePersonCard}
+            class={classes.form}
+            currentRef={this.formRef}
+          />
+          <PersonCardsList cards={this.state.infoCards} class={classes.list} />
+        </section>
       </>
     );
   }

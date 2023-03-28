@@ -1,24 +1,17 @@
-
-
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-.container{
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.title{
+.title {
   font-size: 40px;
   text-align: center;
   padding-top: 20px;
   margin-bottom: 20px;
 }
 
-.subtitle{
+.subtitle {
   font-size: 30px;
   font-weight: 500;
   text-align: center;
-} 
+}
