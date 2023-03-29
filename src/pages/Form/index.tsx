@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import classes from './index.module.css';
 import Form from '../../components/form';
 
