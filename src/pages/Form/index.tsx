@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { MutableRefObject, useRef, useState } from 'react';
 import classes from './index.module.css';
 import Form from '../../components/form';
 
@@ -13,7 +13,6 @@ const FormPage = () => {
 
   const handlePersonCard = (personCard: FormFields) => {
     setInfoCards([...infoCards, cardConvertation(personCard)]);
-    formRef.current;
   };
 
   return (

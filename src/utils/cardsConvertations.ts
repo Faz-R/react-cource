@@ -1,4 +1,4 @@
-import { FormFields } from '../interface/FormFields';
+import { FormFields } from '../components/form/interface';
 
 export function cardConvertation(personCard: FormFields) {
   return {

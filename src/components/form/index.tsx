@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { MutableRefObject, useRef, useState } from 'react';
 import classes from './index.module.css';
 import { countries } from '../../utils/countries';
 import Button from '../UI/button';
@@ -36,6 +36,7 @@ const Form = ({ getPersonCard, classForm, currentRef }: FormProps) => {
     if (!Object.values(valid).some((e) => e == false)) {
       setMessage(true);
       getPersonCard(formFields);
+      currentRef.current?.reset();
 
       setTimeout(() => {
         setMessage(false);
@@ -45,7 +46,7 @@ const Form = ({ getPersonCard, classForm, currentRef }: FormProps) => {
 
   const validate = (
     fieldName: string,
-    field: React.RefObject<HTMLInputElement> | React.RefObject<HTMLSelectElement>
+    field: MutableRefObject<HTMLInputElement> | MutableRefObject<HTMLSelectElement>
   ) => {
     const fieldsError = errors;
     const fieldsValid = valid;
