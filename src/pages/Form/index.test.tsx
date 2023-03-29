@@ -47,6 +47,7 @@ describe('FormPage', () => {
     await userEvent.type(screen.getByLabelText(/Date of Birth/i), '2020-05-24');
     await userEvent.selectOptions(screen.getByLabelText(/Country/i), 'Belarus');
     await userEvent.upload(screen.getByLabelText(/Add photo/i), file);
+    await userEvent.click(screen.getByLabelText(/All requirements are met according to the task/i));
     await userEvent.click(screen.getByText('Submit'));
     const cardsArray = await screen.findAllByRole('listitem');
     expect(cardsArray).toHaveLength(1);
