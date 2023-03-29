@@ -1,4 +1,4 @@
-import React, { MutableRefObject } from 'react';
+import { MutableRefObject } from 'react';
 import classes from './index.module.css';
 
 type SelectProps = {

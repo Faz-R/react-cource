@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import classes from './index.module.css';
 import { countries } from '../../utils/countries';
 import Button from '../UI/button';
@@ -8,21 +8,8 @@ import Radio from '../UI/radio';
 import Select from '../UI/select';
 import Date from '../UI/date';
 import File from '../UI/file';
-import { formErrors, FormFields, formValid } from './interface';
+import { formErrors, FormFields, FormProps, formValid } from './interface';
 import { ACTUAL__DATE, TEXT__REGEXP } from './constant';
-
-export type FormState = {
-  info: FormFields;
-  showMessage: boolean;
-  errors: formErrors;
-  valid: formValid;
-};
-
-export type FormProps = {
-  getPersonCard: (personCard: FormFields) => void;
-  classForm: string;
-  currentRef: MutableRefObject<HTMLFormElement | null>;
-};
 
 const Form = ({ getPersonCard, classForm, currentRef }: FormProps) => {
   const [message, setMessage] = useState(false);

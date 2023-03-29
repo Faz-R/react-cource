@@ -1,5 +1,11 @@
 import { MutableRefObject } from 'react';
 
+export type FormProps = {
+  getPersonCard: (personCard: FormFields) => void;
+  classForm: string;
+  currentRef: MutableRefObject<HTMLFormElement | null>;
+};
+
 export interface formErrors {
   firstName: string;
   secondName: string;

@@ -21,7 +21,7 @@ const FormPage = () => {
       <h1 className="title">Form</h1>
       <section className={classes.section}>
         <Form getPersonCard={handlePersonCard} classForm={classes.form} currentRef={formRef} />
-        <PersonCardsList cards={infoCards} class={classes.list} />
+        <PersonCardsList cards={infoCards} classPerson={classes.list} />
       </section>
     </>
   );
