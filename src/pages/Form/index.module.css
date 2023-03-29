@@ -1,0 +1,23 @@
+.section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 4%;
+}
+
+.form {
+  margin-top: 30px;
+  width: 38%;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 58%;
+}
+
+.message {
+  color: red;
+  transition: 1s;
+}

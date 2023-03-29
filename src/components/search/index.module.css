@@ -1,0 +1,40 @@
+.form {
+  display: flex;
+  flex-direction: row;
+}
+
+.search,
+.button {
+  display: block;
+  padding: 10px 15px;
+  border: 1px solid #dfe1e5;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+.search {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.search:focus-visible {
+  outline: none;
+}
+
+.search:hover,
+.button:hover {
+  background-color: #fff;
+  box-shadow: 0 1px 6px rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.button {
+  cursor: pointer;
+}
