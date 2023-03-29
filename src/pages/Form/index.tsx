@@ -1,6 +1,7 @@
-import React, { Component, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import classes from './index.module.css';
 import Form from '../../components/form';
+
 import { cardConvertation } from '../../utils/cardsConvertations';
 import { PersonsData } from '../../interface/PersonsData';
 import PersonCardsList from '../../components/personCardList';

@@ -1,4 +1,4 @@
-import React, { Component, MutableRefObject, useEffect, useRef, useState } from 'react';
+import React, { MutableRefObject, useRef, useState } from 'react';
 import classes from './index.module.css';
 import { countries } from '../../utils/countries';
 import Button from '../UI/button';
@@ -106,6 +106,10 @@ const Form = ({ getPersonCard, classForm, currentRef }: FormProps) => {
         fieldsValid.photo = field.current !== null && field.current.value.length !== 0;
         fieldsError.photo = fieldsValid.photo ? '' : 'Upload a photo';
         break;
+      case 'check':
+        fieldsValid.check = field.current !== null && (field.current as HTMLInputElement).checked;
+        fieldsError.check = fieldsValid.check ? '' : 'Accept terms';
+        break;
       default:
         break;
     }
@@ -152,6 +156,7 @@ const Form = ({ getPersonCard, classForm, currentRef }: FormProps) => {
       <Checkbox
         name="All requirements are met according to the task."
         currentRef={formFields.check}
+        error={errors.check}
       />
       <Button name={'Submit'} type={'submit'} classElement={classes.button} />
     </form>
