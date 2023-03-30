@@ -1,13 +1,17 @@
+import { FormValues } from '../form/interface';
 import classes from './index.module.css';
-import { PersonsData } from '../../interface/PersonsData';
 
-const PersonCard = ({ card }: { card: PersonsData }) => {
+const PersonCard = ({ card }: { card: FormValues }) => {
   return (
-    <li className={`${classes.card} ${card.check ? classes.check : classes.uncheck}`}>
+    <li className={`${classes.card} {card.check ? classes.check : classes.uncheck}`}>
       <div className={classes.picture}>
-        <img src={card.photo} alt={card.firstName} className={classes.img} />
+        <img
+          src={URL.createObjectURL(card.photo[0])}
+          alt={card.firstName}
+          className={classes.img}
+        />
         <span className={classes.sex}>
-          {card.sex === 'male' ? (
+          {card.gender === 'male' ? (
             <i className={`fa-solid fa-mars ${classes.male}`}></i>
           ) : (
             <i className={`fa-solid fa-venus ${classes.female}`}></i>

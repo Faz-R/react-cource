@@ -1,18 +1,19 @@
-import { MutableRefObject } from 'react';
+import { FieldError, UseFormRegister } from 'react-hook-form';
+import { FormValues } from '../../form/interface';
 import classes from './index.module.css';
 
-type InputProps = {
-  name: string;
-  currentRef: MutableRefObject<HTMLInputElement | null>;
-  error?: string;
-};
+interface InputProps {
+  labelName: string;
+  register: ReturnType<UseFormRegister<FormValues>>;
+  error: FieldError | undefined;
+}
 
-const InputText = ({ name, currentRef, error = '' }: InputProps) => {
+const InputText = ({ labelName, register, error }: InputProps) => {
   return (
     <label className={classes.label}>
-      {name}
-      <input type="text" ref={currentRef} className={classes.input} />
-      <span className={classes.error}>{error}</span>
+      {labelName}
+      <input {...register} className={classes.input} />
+      {error && <span className={classes.error}>{error.message}</span>}
     </label>
   );
 };

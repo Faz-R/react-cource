@@ -1,22 +1,23 @@
-import { MutableRefObject } from 'react';
+import { UseFormRegister, FieldError } from 'react-hook-form';
+import { FormValues } from '../../form/interface';
 import classes from './index.module.css';
 
-type FileProps = {
-  name: string;
-  currentRef: MutableRefObject<HTMLInputElement | null>;
-  error?: string;
-};
+interface InputProps {
+  labelName: string;
+  register: ReturnType<UseFormRegister<FormValues>>;
+  error: FieldError | undefined;
+}
 
-const File = ({ name, currentRef, error = '' }: FileProps) => {
+const InputFile = ({ labelName, register, error }: InputProps) => {
   return (
     <div className={classes.wrapper}>
       <label className={classes.label}>
-        {name}
-        <input type="file" ref={currentRef} className={classes.input} />
+        {labelName}
+        <input type="file" {...register} className={classes.input} />
       </label>
-      <span className={classes.error}>{error}</span>
+      {error && <span className={classes.error}>{error.message}</span>}
     </div>
   );
 };
 
-export default File;
+export default InputFile;

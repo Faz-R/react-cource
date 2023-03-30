@@ -1,9 +1,9 @@
 import classes from './index.module.css';
-import { PersonsData } from '../../interface/PersonsData';
 import PersonCard from '../personCard';
+import { FormValues } from '../form/interface';
 
 type CardsProps = {
-  cards: PersonsData[];
+  cards: FormValues[];
   classPerson: string;
 };
 

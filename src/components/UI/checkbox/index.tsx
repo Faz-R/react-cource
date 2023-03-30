@@ -1,18 +1,19 @@
-import { MutableRefObject } from 'react';
+import { UseFormRegister, FieldError } from 'react-hook-form';
+import { FormValues } from '../../form/interface';
 import classes from './index.module.css';
 
-type CheckboxProps = {
-  name: string;
-  currentRef: MutableRefObject<HTMLInputElement | null>;
-  error?: string;
-};
+interface InputProps {
+  labelName: string;
+  register: ReturnType<UseFormRegister<FormValues>>;
+  error: FieldError | undefined;
+}
 
-const Checkbox = ({ name, currentRef, error = '' }: CheckboxProps) => {
+const Checkbox = ({ labelName, register, error }: InputProps) => {
   return (
     <label className={classes.label}>
-      <input type="checkbox" ref={currentRef} className={classes.input} />
-      {name}
-      <span className={classes.error}>{error}</span>
+      <input type="checkbox" {...register} className={classes.input} />
+      {labelName}
+      {error && <span className={classes.error}>{error.message}</span>}
     </label>
   );
 };

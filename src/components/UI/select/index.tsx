@@ -1,18 +1,19 @@
-import { MutableRefObject } from 'react';
+import { FieldError, UseFormRegister } from 'react-hook-form';
+import { FormValues } from '../../form/interface';
 import classes from './index.module.css';
 
-type SelectProps = {
-  name: string;
+interface InputProps {
+  labelName: string;
   options: string[];
-  currentRef: MutableRefObject<HTMLSelectElement | null>;
-  error?: string;
-};
+  register: ReturnType<UseFormRegister<FormValues>>;
+  error: FieldError | undefined;
+}
 
-const Select = ({ name, options, currentRef, error = '' }: SelectProps) => {
+const Select = ({ labelName, options, register, error }: InputProps) => {
   return (
     <label className={classes.label}>
-      {name}
-      <select ref={currentRef} className={classes.select}>
+      {labelName}
+      <select {...register} className={classes.select}>
         {options.map((option) => {
           return (
             <option value={option} className={classes.option} key={option}>
@@ -21,7 +22,7 @@ const Select = ({ name, options, currentRef, error = '' }: SelectProps) => {
           );
         })}
       </select>
-      <span className={classes.error}>{error}</span>
+      {error && <span className={classes.error}>{error.message}</span>}
     </label>
   );
 };

@@ -1,5 +1,5 @@
 import classes from './index.module.css';
-import { ICard } from '../../interface/ICard';
+import { ICard } from './interface';
 
 const Card = ({ card }: { card: ICard }) => {
   return (

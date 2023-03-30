@@ -1,4 +1,3 @@
-import React, { MutableRefObject, useRef, useState } from 'react';
 import classes from './index.module.css';
 import { countries } from '../../utils/countries';
 import Button from '../UI/button';
@@ -7,107 +6,37 @@ import InputText from '../UI/inputText';
 import Radio from '../UI/radio';
 import Select from '../UI/select';
 import Date from '../UI/date';
-import File from '../UI/file';
-import { formErrors, FormFields, FormProps, formValid } from './interface';
+import InputFile from '../UI/file';
 import { ACTUAL__DATE, TEXT__REGEXP } from './constant';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { FormValues } from './interface';
 
-const Form = ({ getPersonCard, classForm, currentRef }: FormProps) => {
+type FormProps = {
+  getPersonCard: (personCard: FormValues) => void;
+  classForm: string;
+};
+
+const Form = ({ getPersonCard, classForm }: FormProps) => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm<FormValues>({ mode: 'onSubmit' });
+
+  const onSubmit = (data: FormValues) => {
+    setMessage(true);
+    getPersonCard(data);
+    setTimeout(() => {
+      setMessage(false);
+      reset();
+    }, 2000);
+  };
   const [message, setMessage] = useState(false);
-  const [errors, setErrors] = useState({} as formErrors);
-  const [valid, setValid] = useState({} as formValid);
-
-  const formFields: FormFields = {
-    firstName: useRef(null),
-    secondName: useRef(null),
-    date: useRef(null),
-    country: useRef(null),
-    male: useRef(null),
-    female: useRef(null),
-    photo: useRef(null),
-    check: useRef(null),
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    Object.entries(formFields).forEach(([name, data]) => {
-      validate(name, data);
-    });
-
-    if (!Object.values(valid).some((e) => e == false)) {
-      setMessage(true);
-      getPersonCard(formFields);
-      currentRef.current?.reset();
-
-      setTimeout(() => {
-        setMessage(false);
-      }, 3000);
-    }
-  };
-
-  const validate = (
-    fieldName: string,
-    field: MutableRefObject<HTMLInputElement> | MutableRefObject<HTMLSelectElement>
-  ) => {
-    const fieldsError = errors;
-    const fieldsValid = valid;
-
-    switch (fieldName) {
-      case 'firstName':
-        fieldsValid.firstName =
-          field.current !== null &&
-          field.current.value.length >= 3 &&
-          TEXT__REGEXP.test(field.current.value);
-        fieldsError.firstName = fieldsValid.firstName ? '' : 'Enter 3 or more characters';
-        break;
-      case 'secondName':
-        fieldsValid.secondName =
-          field.current !== null &&
-          field.current.value.length >= 3 &&
-          TEXT__REGEXP.test(field.current.value);
-        fieldsError.secondName = fieldsValid.secondName ? '' : 'Enter 3 or more characters';
-        break;
-      case 'date':
-        fieldsValid.date =
-          field.current !== null &&
-          field.current.value.length !== 0 &&
-          field.current.value.length == 10 &&
-          +field.current.value.slice(0, 4) <= ACTUAL__DATE;
-        fieldsError.date = fieldsValid.date ? '' : 'Enter a date <= current date';
-        break;
-      case 'country':
-        fieldsValid.country = field.current !== null && field.current.value.length !== 0;
-        fieldsError.country = fieldsValid.country ? '' : 'Choose the country';
-        break;
-      case 'male':
-        if (!fieldsValid.sex) {
-          fieldsValid.sex = (field.current as HTMLInputElement).checked;
-          fieldsError.sex = fieldsValid.sex ? '' : 'Choose gender';
-        }
-        break;
-      case 'female':
-        if (!fieldsValid.sex) {
-          fieldsValid.sex = (field.current as HTMLInputElement).checked;
-          fieldsError.sex = fieldsValid.sex ? '' : 'Choose gender';
-        }
-        break;
-      case 'photo':
-        fieldsValid.photo = field.current !== null && field.current.value.length !== 0;
-        fieldsError.photo = fieldsValid.photo ? '' : 'Upload a photo';
-        break;
-      case 'check':
-        fieldsValid.check = field.current !== null && (field.current as HTMLInputElement).checked;
-        fieldsError.check = fieldsValid.check ? '' : 'Accept terms';
-        break;
-      default:
-        break;
-    }
-
-    setErrors(JSON.parse(JSON.stringify(fieldsError)));
-    setValid(JSON.parse(JSON.stringify(fieldsValid)));
-  };
 
   return (
-    <form className={`${classes.form} ${classForm}`} onSubmit={handleSubmit} ref={currentRef}>
+    <form className={`${classes.form} ${classForm}`} onSubmit={handleSubmit(onSubmit)}>
       {message ? (
         <div className={classes.message}>
           <span className={classes.message__text}>Information has been saved</span>
@@ -116,34 +45,93 @@ const Form = ({ getPersonCard, classForm, currentRef }: FormProps) => {
         ''
       )}
       <div className={classes.info__row}>
-        <InputText name="First name" currentRef={formFields.firstName} error={errors.firstName} />
         <InputText
-          name="Second name"
-          currentRef={formFields.secondName}
+          labelName="First name"
+          register={{
+            ...register('firstName', {
+              required: 'Field is empty',
+              pattern: { value: TEXT__REGEXP, message: 'Enter letters' },
+              minLength: { value: 3, message: 'Enter 3 or more characters' },
+            }),
+          }}
+          error={errors.firstName}
+        />
+        <InputText
+          labelName="Second name"
+          register={{
+            ...register('secondName', {
+              required: 'Field is empty',
+              pattern: { value: TEXT__REGEXP, message: 'Enter letters' },
+              minLength: { value: 3, message: 'Enter 3 or more characters' },
+            }),
+          }}
           error={errors.secondName}
         />
       </div>
+
       <div className={classes.info__row}>
-        <Date name="Date of Birth" currentRef={formFields.date} error={errors.date} />
+        <Date
+          labelName="Date of Birth"
+          register={{
+            ...register('date', {
+              required: 'Field is empty',
+              validate: (date) =>
+                date < ACTUAL__DATE.toLocaleString() || `Enter a date < current date`,
+            }),
+          }}
+          error={errors.date}
+        />
         <Select
-          name="Country"
+          labelName="Country"
           options={countries}
-          currentRef={formFields.country}
+          register={{
+            ...register('country', {
+              required: 'Field is empty',
+            }),
+          }}
           error={errors.country}
         />
       </div>
       <div className={classes.info__column}>
         <span className={classes.block__title}>Gender</span>
         <div className={classes.sex}>
-          <Radio label={'Male'} name={'sex'} id={'male'} currentRef={formFields.male} />
-          <Radio label={'Female'} name={'sex'} id={'female'} currentRef={formFields.female} />
-          <span className={classes.sex__error}>{errors.sex}</span>
+          <Radio
+            labelName="Male"
+            register={{
+              ...register('gender', {
+                required: 'Choose gender',
+              }),
+            }}
+            value="male"
+          />
+          <Radio
+            labelName="Female"
+            register={{
+              ...register('gender', {
+                required: 'Choose gender',
+              }),
+            }}
+            value="female"
+          />
+          {errors.gender && <span className={classes.sex__error}>{errors.gender.message}</span>}
         </div>
       </div>
-      <File name={'Add photo'} currentRef={formFields.photo} error={errors.photo} />
+      <InputFile
+        labelName="Add photo"
+        register={{
+          ...register('photo', {
+            required: 'Upload a photo',
+          }),
+        }}
+        error={errors.photo}
+      />
       <Checkbox
-        name="All requirements are met according to the task."
-        currentRef={formFields.check}
+        labelName="Consent to personal data processing"
+        register={{
+          ...register('check', {
+            required: 'Accept terms',
+          }),
+        }}
         error={errors.check}
       />
       <Button name={'Submit'} type={'submit'} classElement={classes.button} />

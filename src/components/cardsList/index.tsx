@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import classes from './index.module.css';
-import { ICard } from '../../interface/ICard';
+import { ICard } from '../card/interface';
 import Card from '../card';
 import getCards from '../../utils/getCards';
 

@@ -1,18 +1,18 @@
-import { MutableRefObject } from 'react';
+import { UseFormRegister } from 'react-hook-form';
+import { FormValues } from '../../form/interface';
 import classes from './index.module.css';
 
 type RadioProps = {
-  label: string;
-  name: string;
-  id: string;
-  currentRef: MutableRefObject<HTMLInputElement | null>;
+  labelName: string;
+  register: ReturnType<UseFormRegister<FormValues>>;
+  value: string;
 };
 
-const Radio = ({ label, name, id, currentRef }: RadioProps) => {
+const Radio = ({ labelName, register, value }: RadioProps) => {
   return (
     <label className={classes.label}>
-      <span className={classes.text}>{label}</span>
-      <input type="radio" ref={currentRef} name={name} id={id} className={classes.input} />
+      <span className={classes.text}>{labelName}</span>
+      <input type="radio" {...register} value={value} className={classes.input} />
     </label>
   );
 };
