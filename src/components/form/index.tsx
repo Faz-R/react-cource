@@ -5,7 +5,7 @@ import Checkbox from '../UI/checkbox';
 import InputText from '../UI/inputText';
 import Radio from '../UI/radio';
 import Select from '../UI/select';
-import Date from '../UI/date';
+import InputDate from '../UI/date';
 import InputFile from '../UI/file';
 import { ACTUAL__DATE, TEXT__REGEXP } from './constant';
 import { useForm } from 'react-hook-form';
@@ -27,6 +27,7 @@ const Form = ({ getPersonCard, classForm }: FormProps) => {
 
   const onSubmit = (data: FormValues) => {
     setMessage(true);
+    console.log(data);
     getPersonCard(data);
     setTimeout(() => {
       setMessage(false);
@@ -70,13 +71,12 @@ const Form = ({ getPersonCard, classForm }: FormProps) => {
       </div>
 
       <div className={classes.info__row}>
-        <Date
+        <InputDate
           labelName="Date of Birth"
           register={{
             ...register('date', {
               required: 'Field is empty',
-              validate: (date) =>
-                date < ACTUAL__DATE.toLocaleString() || `Enter a date < current date`,
+              validate: (date) => new Date(date) <= ACTUAL__DATE || `Enter a date < current date`,
             }),
           }}
           error={errors.date}

@@ -8,7 +8,7 @@ interface InputProps {
   error: FieldError | undefined;
 }
 
-const Date = ({ labelName, register, error }: InputProps) => {
+const InputDate = ({ labelName, register, error }: InputProps) => {
   return (
     <label className={classes.label}>
       {labelName}
@@ -18,4 +18,4 @@ const Date = ({ labelName, register, error }: InputProps) => {
   );
 };
 
-export default Date;
+export default InputDate;

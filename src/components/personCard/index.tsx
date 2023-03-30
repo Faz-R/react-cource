@@ -22,7 +22,7 @@ const PersonCard = ({ card }: { card: FormValues }) => {
         <span className={classes.name}>{`${card.firstName} ${card.secondName}`}</span>
         <span className={classes.info__block}>
           <i className={`fa-regular fa-calendar ${classes.date}`}></i>
-          {card.date}
+          {card.date.toLocaleString()}
         </span>
         <span className={classes.info__block}>
           <i className={`fa-solid fa-location-pin ${classes.location}`}></i>
