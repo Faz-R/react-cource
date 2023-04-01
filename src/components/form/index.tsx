@@ -35,7 +35,10 @@ const Form = ({ getPersonCard, classForm }: FormProps) => {
   const [message, setMessage] = useState(false);
 
   useEffect(() => {
-    reset();
+    if (isSubmitSuccessful) {
+      console.log('yes')
+      reset();
+    }
   }, [isSubmitSuccessful, reset]);
 
   return (
