@@ -9,7 +9,7 @@ import InputDate from '../UI/date';
 import InputFile from '../UI/file';
 import { ACTUAL__DATE, TEXT__REGEXP } from './constant';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormValues } from './interface';
 
 type FormProps = {
@@ -20,21 +20,23 @@ type FormProps = {
 const Form = ({ getPersonCard, classForm }: FormProps) => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
     handleSubmit,
     reset,
   } = useForm<FormValues>({ mode: 'onSubmit' });
 
   const onSubmit = (data: FormValues) => {
     setMessage(true);
-    console.log(data);
     getPersonCard(data);
     setTimeout(() => {
       setMessage(false);
-      reset();
     }, 2000);
   };
   const [message, setMessage] = useState(false);
+
+  useEffect(() => {
+    reset();
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <form className={`${classes.form} ${classForm}`} onSubmit={handleSubmit(onSubmit)}>
