@@ -10,10 +10,10 @@ import InputFile from '../UI/file';
 import { ACTUAL__DATE, TEXT__REGEXP } from './constant';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { FormValues } from './interface';
+import { FormValues, PersonData } from './interface';
 
 type FormProps = {
-  getPersonCard: (personCard: FormValues) => void;
+  getPersonCard: (personCard: PersonData) => void;
   classForm: string;
 };
 
@@ -23,11 +23,13 @@ const Form = ({ getPersonCard, classForm }: FormProps) => {
     formState: { errors, isSubmitSuccessful },
     handleSubmit,
     reset,
+    formState,
   } = useForm<FormValues>({ mode: 'onSubmit' });
 
   const onSubmit = (data: FormValues) => {
     setMessage(true);
-    getPersonCard(data);
+    const result = { ...data, photo: URL.createObjectURL(data.photo[0]) };
+    getPersonCard(result);
     setTimeout(() => {
       setMessage(false);
     }, 2000);
@@ -35,10 +37,10 @@ const Form = ({ getPersonCard, classForm }: FormProps) => {
   const [message, setMessage] = useState(false);
 
   useEffect(() => {
-    if (isSubmitSuccessful) {
+    if (formState.isSubmitSuccessful) {
       reset();
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, formState]);
 
   return (
     <form className={`${classes.form} ${classForm}`} onSubmit={handleSubmit(onSubmit)}>
