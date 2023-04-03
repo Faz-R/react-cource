@@ -2,12 +2,12 @@ import { useState } from 'react';
 import classes from './index.module.css';
 import Form from '../../components/form';
 import PersonCardsList from '../../components/personCardList';
-import { FormValues } from '../../components/form/interface';
+import { PersonData } from '../../components/form/interface';
 
 const FormPage = () => {
-  const [infoCards, setInfoCards] = useState([] as FormValues[]);
+  const [infoCards, setInfoCards] = useState([] as PersonData[]);
 
-  const handlePersonCard = (personCard: FormValues) => {
+  const handlePersonCard = (personCard: PersonData) => {
     setInfoCards([...infoCards, personCard]);
   };
 

@@ -10,10 +10,10 @@ import InputFile from '../UI/file';
 import { ACTUAL__DATE, TEXT__REGEXP } from './constant';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { FormValues } from './interface';
+import { FormValues, PersonData } from './interface';
 
 type FormProps = {
-  getPersonCard: (personCard: FormValues) => void;
+  getPersonCard: (personCard: PersonData) => void;
   classForm: string;
 };
 
@@ -27,7 +27,8 @@ const Form = ({ getPersonCard, classForm }: FormProps) => {
 
   const onSubmit = (data: FormValues) => {
     setMessage(true);
-    getPersonCard(data);
+    const result = { ...data, photo: URL.createObjectURL(data.photo[0]) };
+    getPersonCard(result);
     setTimeout(() => {
       setMessage(false);
     }, 2000);

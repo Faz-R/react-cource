@@ -1,3 +1,11 @@
+.wrapper{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .lds_spinner {
   color: official;
   display: inline-block;
@@ -18,7 +26,7 @@
   width: 6px;
   height: 18px;
   border-radius: 20%;
-  background: #fff;
+  background: #61dafb;
 }
 .lds_spinner .spin:nth-child(1) {
   transform: rotate(0deg);

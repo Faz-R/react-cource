@@ -1,6 +1,7 @@
 .form {
   display: flex;
   flex-direction: row;
+  position: relative;
 }
 
 .search,
@@ -37,4 +38,12 @@
 
 .button {
   cursor: pointer;
+}
+
+.error{
+  position: absolute;
+  bottom: -30px;
+  width: 100%;
+  text-align: center;
+  color: tomato;
 }
