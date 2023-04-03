@@ -9,7 +9,7 @@ const Cards = () => {
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    getCards()
+    getCards({ limit: 8 })
       .then((items) => setCards(items))
       .catch((err) => {
         setError(`Sorry! An error has occurred: ${err.message}`);
