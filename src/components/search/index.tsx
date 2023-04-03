@@ -2,14 +2,22 @@ import React, { useEffect, useState } from 'react';
 import classes from './index.module.css';
 
 const Search = () => {
-  const [search, setSearh] = useState(localStorage.getItem('search') ?? '');
+  const [search, setSearh] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('search', search);
-  }, [search]);
+    const searchText = localStorage.getItem('search');
+    localStorage.setItem('search', '');
+
+    return () => {
+      if (searchText) {
+        setSearh(searchText);
+      }
+    };
+  }, []);
 
   const changeSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setSearh(e.target.value);
+    localStorage.setItem('search', e.target.value);
   };
 
   return (
