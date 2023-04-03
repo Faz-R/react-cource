@@ -14,7 +14,7 @@ const Cards = () => {
       .catch((err) => {
         setError(`Sorry! An error has occurred: ${err.message}`);
       });
-  });
+  }, []);
 
   return (
     <section className={classes.section}>
