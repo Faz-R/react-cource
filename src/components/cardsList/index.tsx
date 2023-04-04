@@ -7,17 +7,6 @@ interface CardsProps {
 }
 
 const Cards = ({ cards }: CardsProps) => {
-  // const [cards, setCards] = useState<ICard[]>([]);
-  // const [error, setError] = useState<string>('');
-
-  // useEffect(() => {
-  //   getCards({ limit: 8 })
-  //     .then((items) => setCards(items))
-  //     .catch((err) => {
-  //       setError(`Sorry! An error has occurred: ${err.message}`);
-  //     });
-  // }, []);
-
   return (
     <section className={classes.section}>
       <ul className={classes.cards}>

@@ -13,9 +13,15 @@ const Home = () => {
 
   const handleSearch = async (searchQuery: string) => {
     setLoading(true);
+    setItemCards([] as ICard[]);
 
     await getCards({ search: searchQuery })
-      .then((items: ICard[]) => setItemCards(items))
+      .then((items: ICard[]) => {
+        if (items.length === 0) {
+          setError('Sorry! No result found');
+        }
+        setItemCards(items);
+      })
       .catch((err: Error) => {
         setError(`Sorry! An error has occurred: ${err.message}`);
       })
@@ -30,8 +36,13 @@ const Home = () => {
         <h1 className="title">Gallery</h1>
         <Search getSearchString={handleSearch} />
       </section>
-      {loading ? <Loader /> : <CardsList cards={itemCards} />}
-      <span>{error}</span>
+      {loading ? (
+        <Loader />
+      ) : itemCards.length !== 0 ? (
+        <CardsList cards={itemCards} />
+      ) : (
+        <span className={classes.error}>{error}</span>
+      )}
     </>
   );
 };
