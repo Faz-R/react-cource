@@ -21,7 +21,6 @@ const Search = ({ getSearchString }: SearchProps) => {
 
   const onSubmit = (data: SearchForm) => {
     getSearchString(data.searchText);
-    console.log(data);
   };
 
   useEffect(() => {

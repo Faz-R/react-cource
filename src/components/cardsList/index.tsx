@@ -1,32 +1,30 @@
-import { useEffect, useState } from 'react';
 import classes from './index.module.css';
 import { ICard } from '../card/interface';
 import Card from '../card';
-import getCards from '../../utils/getCards';
 
-const Cards = () => {
-  const [cards, setCards] = useState<ICard[]>([]);
-  const [error, setError] = useState<string>('');
+interface CardsProps {
+  cards: ICard[];
+}
 
-  useEffect(() => {
-    getCards({ limit: 8 })
-      .then((items) => setCards(items))
-      .catch((err) => {
-        setError(`Sorry! An error has occurred: ${err.message}`);
-      });
-  }, []);
+const Cards = ({ cards }: CardsProps) => {
+  // const [cards, setCards] = useState<ICard[]>([]);
+  // const [error, setError] = useState<string>('');
+
+  // useEffect(() => {
+  //   getCards({ limit: 8 })
+  //     .then((items) => setCards(items))
+  //     .catch((err) => {
+  //       setError(`Sorry! An error has occurred: ${err.message}`);
+  //     });
+  // }, []);
 
   return (
     <section className={classes.section}>
-      {cards.length !== 0 ? (
-        <ul className={classes.cards}>
-          {cards.map((card) => {
-            return <Card card={card} key={card.id} />;
-          })}
-        </ul>
-      ) : (
-        <span className={classes.error}>{error}</span>
-      )}
+      <ul className={classes.cards}>
+        {cards.map((card, index) => {
+          return <Card card={card} key={index} />;
+        })}
+      </ul>
     </section>
   );
 };

@@ -5,11 +5,15 @@ const Card = ({ card }: { card: ICard }) => {
   return (
     <li className={classes.card}>
       <div className={classes.picture}>
-        <img src={card.image_url} alt={card.title} className={classes.img} />
+        <img
+          src={`https://www.artic.edu/iiif/2/${card.image_id}/full/843,/0/default.jpg`}
+          alt={card.title}
+          className={classes.img}
+        />
       </div>
       <div className={classes.info}>
-        <span className={classes.price}>${card.max_current_price}</span>
-        <span>{card.title}</span>
+        <span className={classes.price}>{card.title}</span>
+        {/* <span>{card.title}</span> */}
         {/* <div className={classes.rating}>
           <div className={classes.stars}>
             <div

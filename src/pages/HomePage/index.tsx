@@ -4,26 +4,34 @@ import CardsList from '../../components/cardsList';
 import { useState } from 'react';
 import { ICard } from '../../components/card/interface';
 import Loader from '../../components/UI/loader';
+import getCards from '../../utils/getCards';
 
 const Home = () => {
-  const [itemCard, setItemCard] = useState([] as ICard[]);
+  const [itemCards, setItemCards] = useState([] as ICard[]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSearch = async (search: string) => {
+  const handleSearch = async (searchQuery: string) => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
 
-    console.log(search);
+    await getCards({ search: searchQuery })
+      .then((items: ICard[]) => setItemCards(items))
+      .catch((err: Error) => {
+        setError(`Sorry! An error has occurred: ${err.message}`);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
+
   return (
     <>
       <section className={classes.search}>
-        <h1 className="title">Moogle</h1>
+        <h1 className="title">Gallery</h1>
         <Search getSearchString={handleSearch} />
       </section>
-      {loading ? <Loader /> : <CardsList />}
+      {loading ? <Loader /> : <CardsList cards={itemCards} />}
+      <span>{error}</span>
     </>
   );
 };
