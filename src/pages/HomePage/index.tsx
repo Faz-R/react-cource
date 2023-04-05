@@ -1,7 +1,7 @@
 import Search from '../../components/search';
 import classes from './index.module.css';
 import CardsList from '../../components/cardsList';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ICard } from '../../components/card/interface';
 import Loader from '../../components/UI/loader';
 import getCards from '../../utils/getCards';
@@ -33,6 +33,10 @@ const Home = () => {
         setLoading(false);
       });
   };
+
+  useEffect(() => {
+    handleSearch(localStorage.getItem('search') || '');
+  }, []);
 
   return (
     <>
