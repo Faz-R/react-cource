@@ -5,11 +5,15 @@ import { useState } from 'react';
 import { ICard } from '../../components/card/interface';
 import Loader from '../../components/UI/loader';
 import getCards from '../../utils/getCards';
+import Modal from '../../components/modal';
+import ModalCard from '../../components/modalCard';
 
 const Home = () => {
   const [itemCards, setItemCards] = useState([] as ICard[]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [card, setCard] = useState<ICard>({} as ICard);
 
   const handleSearch = async (searchQuery: string) => {
     setLoading(true);
@@ -36,10 +40,13 @@ const Home = () => {
         <h1 className="title">Gallery</h1>
         <Search getSearchString={handleSearch} />
       </section>
+      <Modal visible={modalVisible} setVisible={setModalVisible}>
+        <ModalCard card={card} />
+      </Modal>
       {loading ? (
         <Loader />
       ) : itemCards.length !== 0 ? (
-        <CardsList cards={itemCards} />
+        <CardsList cards={itemCards} showCard={setModalVisible} getCard={setCard} />
       ) : (
         <span className={classes.error}>{error}</span>
       )}

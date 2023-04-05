@@ -15,7 +15,7 @@ describe('App', () => {
       screen.getByRole('heading', {
         level: 1,
       })
-    ).toHaveTextContent(/moogle/i);
+    ).toHaveTextContent(/gallery/i);
   });
   test('Renders headline for about page', () => {
     render(

@@ -1,24 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it } from 'vitest';
 import Card from '.';
+import { CARD_EXAMPLE } from '../../utils/card';
 
 describe('Card', () => {
-  const props = {
-    id: 1,
-    title: 'test',
-    description: 'description',
-    price: 20,
-    discountPercentage: 10,
-    rating: 5,
-    stock: 30,
-    brand: 'brand',
-    category: 'categiory',
-    thumbnail: 'image',
-    images: ['first', 'second', 'third'],
-  };
   it('Render card', async () => {
-    render(<Card card={props} />);
-    expect(screen.getByText('test')).toBeInTheDocument();
+    render(<Card card={CARD_EXAMPLE} showCard={() => {}} getCard={() => {}} />);
+    expect(screen.getByText(/Virgin and Child/i)).toBeInTheDocument();
     expect(screen.queryByText('category')).not.toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import classes from './index.module.css';
 import { useForm } from 'react-hook-form';
 
@@ -10,8 +10,9 @@ interface SearchProps {
   getSearchString: (personCard: string) => void;
 }
 
+let search = '';
+
 const Search = ({ getSearchString }: SearchProps) => {
-  const [search, setSearch] = useState(localStorage.getItem('search') ?? '');
   const {
     register,
     formState: { errors, isSubmitSuccessful },
@@ -23,22 +24,14 @@ const Search = ({ getSearchString }: SearchProps) => {
     getSearchString(data.searchText);
   };
 
-  useEffect(() => {
-    localStorage.setItem('search', '');
-
-    return () => {
-      localStorage.setItem('search', search);
-    };
-  }, [search]);
-
   const changeSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setSearch(e.target.value);
+    search = e.target.value;
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
-      setSearch('');
+      search = '';
     }
   }, [isSubmitSuccessful, reset]);
 

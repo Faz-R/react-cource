@@ -1,17 +1,22 @@
-import { useState } from 'react';
 import classes from './index.module.css';
 import { ICard } from './interface';
-import Modal from '../modal';
-import ModalCard from '../modalCard';
 import placeholder from '../../assets/placeholder.jpg';
 
-const Card = ({ card }: { card: ICard }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+interface CardProps {
+  card: ICard;
+  showCard: React.Dispatch<React.SetStateAction<boolean>>;
+  getCard: React.Dispatch<React.SetStateAction<ICard>>;
+}
+
+const Card = ({ card, showCard, getCard }: CardProps) => {
   return (
-    <li className={classes.card} onClick={() => setModalVisible(true)}>
-      <Modal visible={modalVisible} setVisible={setModalVisible}>
-        <ModalCard card={card} />
-      </Modal>
+    <li
+      className={classes.card}
+      onClick={() => {
+        showCard(true);
+        getCard(card);
+      }}
+    >
       <div className={classes.picture}>
         {card.image_id ? (
           <img
