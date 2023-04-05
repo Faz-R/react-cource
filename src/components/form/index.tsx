@@ -1,5 +1,5 @@
 import classes from './index.module.css';
-import { countries } from '../../utils/countries';
+import { countries } from '../../constant/countries';
 import Button from '../UI/button';
 import Checkbox from '../UI/checkbox';
 import InputText from '../UI/inputText';

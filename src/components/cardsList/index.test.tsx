@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it } from 'vitest';
 import CardsList from '.';
-import { CARD_EXAMPLE } from '../../utils/card';
+import { CARD_EXAMPLE } from '../../constant/card';
 
 describe('CardsList', () => {
   it('Renders cardslist', async () => {
