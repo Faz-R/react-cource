@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
@@ -12,6 +12,7 @@ export default defineConfig({
       provider: 'c8',
       reporter: ['text'],
       all: true,
+      exclude: ['**/interface.ts', '**/vite.config.ts', '**/vite-env.d.ts '],
     },
   },
 });

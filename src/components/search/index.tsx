@@ -52,6 +52,7 @@ const Search = ({ getSearchString }: SearchProps) => {
           onChange: (e) => changeSearch(e),
           value: search,
         })}
+        data-testid="search"
       />
       <button type="submit" className={classes.button}>
         Search

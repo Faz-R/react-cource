@@ -12,6 +12,12 @@ describe('FormPage', () => {
     expect(screen.getByLabelText(/first name/i)).toHaveValue('React');
     expect(screen.getByLabelText(/second name/i)).toHaveValue('React');
   });
+  test('Checking first name with wrong text', async () => {
+    render(<FormPage />, { wrapper: BrowserRouter });
+    await userEvent.type(screen.getByLabelText(/first name/i), 'Re');
+    await userEvent.click(screen.getByText('Submit'));
+    expect(await screen.findByText('Enter 3 or more characters')).toBeInTheDocument();
+  });
   test('Checking select fields work', async () => {
     render(<FormPage />, { wrapper: BrowserRouter });
     await userEvent.selectOptions(screen.getByLabelText(/Country/i), 'Belarus');
