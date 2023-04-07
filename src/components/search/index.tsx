@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import classes from './index.module.css';
 import { useForm } from 'react-hook-form';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+import { SearchSlice } from '../../store/reducers/searchSlice';
 
 interface SearchForm {
   searchText: string;
@@ -9,9 +11,7 @@ interface SearchForm {
 interface SearchProps {
   getSearchString: (personCard: string) => void;
 }
-
-let search = localStorage.getItem('search') ?? '';
-
+let search = '';
 const Search = ({ getSearchString }: SearchProps) => {
   const {
     register,
@@ -20,26 +20,33 @@ const Search = ({ getSearchString }: SearchProps) => {
     reset,
   } = useForm<SearchForm>({ mode: 'onSubmit' });
 
+  const { searchWord } = useAppSelector((state) => state.searchReducer);
+  const { addSearch } = SearchSlice.actions;
+  const dispatch = useAppDispatch();
+
+  search = searchWord ?? '';
+
+  const changeSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    search = e.target.value;
+  };
+
   const onSubmit = (data: SearchForm) => {
     getSearchString(data.searchText);
   };
 
   useEffect(() => {
     return () => {
-      localStorage.setItem('search', search);
+      dispatch(addSearch(search));
     };
-  }, []);
-
-  const changeSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    search = e.target.value;
-  };
+  }, [addSearch, dispatch]);
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset();
       search = '';
+      dispatch(addSearch(search));
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [addSearch, dispatch, isSubmitSuccessful, reset]);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
