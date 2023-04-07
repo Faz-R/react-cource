@@ -10,14 +10,18 @@ import InputFile from '../UI/file';
 import { ACTUAL__DATE, TEXT__REGEXP } from './constant';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { FormValues, PersonData } from './interface';
+import { FormValues } from './interface';
+import { useAppDispatch } from '../../hooks/redux';
+import { FormSlice } from '../../store/reducers/formSlice';
 
 type FormProps = {
-  getPersonCard: (personCard: PersonData) => void;
   classForm: string;
 };
 
-const Form = ({ getPersonCard, classForm }: FormProps) => {
+const Form = ({ classForm }: FormProps) => {
+  const { addForm } = FormSlice.actions;
+  const dispatch = useAppDispatch();
+
   const {
     register,
     formState: { errors, isSubmitSuccessful },
@@ -28,7 +32,7 @@ const Form = ({ getPersonCard, classForm }: FormProps) => {
   const onSubmit = (data: FormValues) => {
     setMessage(true);
     const result = { ...data, photo: URL.createObjectURL(data.photo[0]) };
-    getPersonCard(result);
+    dispatch(addForm(result));
     setTimeout(() => {
       setMessage(false);
     }, 2000);
