@@ -1,7 +1,7 @@
 import Search from '../../components/search';
 import classes from './index.module.css';
 import CardsList from '../../components/cardsList';
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { ICard } from '../../components/card/interface';
 import Loader from '../../components/UI/loader';
 import Modal from '../../components/modal';
@@ -15,19 +15,17 @@ const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [card, setCard] = useState<ICard>({} as ICard);
 
-  const handleSearch = async (searchQuery: string) => {
-    dispatch(getCardsApi(searchQuery));
-  };
-
-  useEffect(() => {
-    items.length === 0 && handleSearch('');
-  }, []);
+  useLayoutEffect(() => {
+    if (items.length === 0) {
+      dispatch(getCardsApi(''));
+    }
+  }, [dispatch, items.length]);
 
   return (
     <>
       <section className={classes.search}>
         <h1 className="title">Gallery</h1>
-        <Search getSearchString={handleSearch} />
+        <Search />
       </section>
       <Modal visible={modalVisible} setVisible={setModalVisible}>
         <ModalCard card={card} />

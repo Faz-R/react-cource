@@ -3,16 +3,14 @@ import classes from './index.module.css';
 import { useForm } from 'react-hook-form';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { SearchSlice } from '../../store/reducers/searchSlice';
+import { getCardsApi } from '../../utils/getCardsApi';
 
 interface SearchForm {
   searchText: string;
 }
 
-interface SearchProps {
-  getSearchString: (personCard: string) => void;
-}
 let search = '';
-const Search = ({ getSearchString }: SearchProps) => {
+const Search = () => {
   const {
     register,
     formState: { errors, isSubmitSuccessful },
@@ -24,14 +22,14 @@ const Search = ({ getSearchString }: SearchProps) => {
   const { addSearch } = SearchSlice.actions;
   const dispatch = useAppDispatch();
 
-  search = searchWord ?? '';
+  search = searchWord;
 
   const changeSearch: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     search = e.target.value;
   };
 
   const onSubmit = (data: SearchForm) => {
-    getSearchString(data.searchText);
+    dispatch(getCardsApi(data.searchText));
   };
 
   useEffect(() => {
