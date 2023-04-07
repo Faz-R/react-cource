@@ -10,7 +10,7 @@ const initialState: FormState = {
 };
 
 export const FormSlice = createSlice({
-  name: 'search',
+  name: 'form',
   initialState,
   reducers: {
     addForm(state, action: PayloadAction<PersonData>) {

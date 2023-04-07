@@ -4,38 +4,23 @@ import CardsList from '../../components/cardsList';
 import { useState, useEffect } from 'react';
 import { ICard } from '../../components/card/interface';
 import Loader from '../../components/UI/loader';
-import getCards from '../../utils/getCards';
 import Modal from '../../components/modal';
 import ModalCard from '../../components/modalCard';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { getCardsApi } from '../../utils/getCardsApi';
 
 const Home = () => {
-  const [itemCards, setItemCards] = useState([] as ICard[]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const dispatch = useAppDispatch();
+  const { items, isLoading, errorApi } = useAppSelector((state) => state.apiReducer);
   const [modalVisible, setModalVisible] = useState(false);
   const [card, setCard] = useState<ICard>({} as ICard);
 
   const handleSearch = async (searchQuery: string) => {
-    setLoading(true);
-    setItemCards([] as ICard[]);
-
-    await getCards({ search: searchQuery })
-      .then((items: ICard[]) => {
-        if (items.length === 0) {
-          setError('Sorry! No result found');
-        }
-        setItemCards(items);
-      })
-      .catch((err: Error) => {
-        setError(`Sorry! An error has occurred: ${err.message}`);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    dispatch(getCardsApi(searchQuery));
   };
 
   useEffect(() => {
-    handleSearch(localStorage.getItem('search') || '');
+    items.length === 0 && handleSearch('');
   }, []);
 
   return (
@@ -47,12 +32,12 @@ const Home = () => {
       <Modal visible={modalVisible} setVisible={setModalVisible}>
         <ModalCard card={card} />
       </Modal>
-      {loading ? (
+      {isLoading ? (
         <Loader />
-      ) : itemCards.length !== 0 ? (
-        <CardsList cards={itemCards} showCard={setModalVisible} getCard={setCard} />
+      ) : errorApi ? (
+        <span className={classes.error}>{errorApi}</span>
       ) : (
-        <span className={classes.error}>{error}</span>
+        <CardsList cards={items} showCard={setModalVisible} getCard={setCard} />
       )}
     </>
   );
