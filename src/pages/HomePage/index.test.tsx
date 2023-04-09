@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 import HomePage from '.';
 import { BrowserRouter } from 'react-router-dom';
 import { CARDS_ARRAY } from './constant';
-import { ICard } from '../../components/card/interface';
 
 describe('HomePage', async () => {
   beforeEach(() => {
