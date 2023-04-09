@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, test, vi } from 'vitest';
+import { describe, test, vi, Mock } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import HomePage from '.';
 import { BrowserRouter } from 'react-router-dom';
@@ -23,16 +23,11 @@ describe('HomePage', async () => {
     const mockData = {
       data: CARDS_ARRAY,
     };
-    (
-      global as unknown as {
-        [x: string]: unknown;
-        json: () => Promise<{ data: ICard }>;
-      }
-    ).fetch = vi.fn(() =>
+    global.fetch = vi.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve(mockData),
       })
-    );
+    ) as Mock;
     render(<HomePage />, { wrapper: BrowserRouter });
     userEvent.type(screen.getByRole('searchbox'), 'Mone');
     userEvent.click(screen.getByText(/Search/i));
