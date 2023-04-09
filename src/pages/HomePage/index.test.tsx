@@ -1,24 +1,41 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { describe, test } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, test, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
-import SearchPage from '.';
+import HomePage from '.';
 import { BrowserRouter } from 'react-router-dom';
+import { CARDS_ARRAY } from './constant';
+import { ICard } from '../../components/card/interface';
 
-describe('The presence of a loader at the time of the request', async () => {
-  test('', async () => {
-    render(<SearchPage />, { wrapper: BrowserRouter });
+describe('HomePage', async () => {
+  beforeEach(() => {
+    global.fetch = vi.fn();
+  });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+  test('The presence of a loader at the time of the request', async () => {
+    render(<HomePage />, { wrapper: BrowserRouter });
     userEvent.type(screen.getByRole('searchbox'), 'Mone');
     userEvent.click(screen.getByText(/Search/i));
     expect(await screen.findByTestId('loader')).toBeInTheDocument;
   });
   test('Use field search to find picture', async () => {
-    render(<SearchPage />, { wrapper: BrowserRouter });
+    const mockData = {
+      data: CARDS_ARRAY,
+    };
+    (
+      global as unknown as {
+        [x: string]: unknown;
+        json: () => Promise<{ data: ICard }>;
+      }
+    ).fetch = vi.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(mockData),
+      })
+    );
+    render(<HomePage />, { wrapper: BrowserRouter });
     userEvent.type(screen.getByRole('searchbox'), 'Mone');
     userEvent.click(screen.getByText(/Search/i));
-    waitFor(() => expect(screen.findByTestId('loader')).not.toBeInTheDocument)
-      .then(() => {
-        expect(screen.findAllByRole('listitem')).toBeInTheDocument;
-      })
-      .catch((err) => console.log(err));
+    expect(await screen.findAllByTestId('picture-card')).toHaveLength(10);
   });
 });

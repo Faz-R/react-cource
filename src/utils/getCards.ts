@@ -14,7 +14,7 @@ const getCards = async ({ search }: CardProps) => {
     const result = await data.data;
     return result;
   });
-  const finish = Promise.all(cardsArray);
+  const finish = await Promise.all(cardsArray);
   return finish;
 };
 
