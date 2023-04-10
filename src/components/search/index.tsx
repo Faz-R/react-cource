@@ -34,13 +34,6 @@ const Search = ({ getSearchString }: SearchProps) => {
     search = e.target.value;
   };
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-      search = '';
-    }
-  }, [isSubmitSuccessful, reset]);
-
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       {errors.searchText && <span className={classes.error}>{errors.searchText.message}</span>}
