@@ -15,9 +15,8 @@ let search = localStorage.getItem('search') ?? '';
 const Search = ({ getSearchString }: SearchProps) => {
   const {
     register,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<SearchForm>({ mode: 'onSubmit' });
 
   const onSubmit = (data: SearchForm) => {
