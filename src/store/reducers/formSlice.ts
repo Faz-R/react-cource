@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { PersonData } from '../../components/form/interface';
 
-interface FormState {
+export interface FormState {
   formInfo: PersonData[];
 }
 

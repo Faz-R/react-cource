@@ -16,6 +16,7 @@ const Card = ({ card, showCard, getCard }: CardProps) => {
         showCard(true);
         getCard(card);
       }}
+      data-testid="picture-card"
     >
       <div className={classes.picture}>
         {card.image_id ? (

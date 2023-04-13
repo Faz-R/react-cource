@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ICard } from '../../components/card/interface';
 import { getCardsApi } from '../../utils/getCardsApi';
 
-interface ApiState {
+export interface ApiState {
   items: ICard[];
   isLoading: boolean;
   errorApi: string;
