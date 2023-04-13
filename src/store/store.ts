@@ -1,17 +1,18 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import searchReducer from './reducers/searchSlice';
 import formReducer from './reducers/formSlice';
-import apiReducer from './reducers/apiSlice';
+import { itemApi } from './reducers/ItemService';
 
 const rootReducer = combineReducers({
   searchReducer,
   formReducer,
-  apiReducer,
+  [itemApi.reducerPath]: itemApi.reducer,
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(itemApi.middleware),
   });
 };
 

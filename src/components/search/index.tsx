@@ -3,7 +3,6 @@ import classes from './index.module.css';
 import { useForm } from 'react-hook-form';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { SearchSlice } from '../../store/reducers/searchSlice';
-import { getCardsApi } from '../../utils/getCardsApi';
 
 interface SearchForm {
   searchText: string;
@@ -13,9 +12,8 @@ let search = '';
 const Search = () => {
   const {
     register,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<SearchForm>({ mode: 'onSubmit' });
 
   const { searchWord } = useAppSelector((state) => state.searchReducer);
@@ -28,23 +26,15 @@ const Search = () => {
     search = e.target.value;
   };
 
-  const onSubmit = (data: SearchForm) => {
-    dispatch(getCardsApi(data.searchText));
-  };
-
   useEffect(() => {
     return () => {
       dispatch(addSearch(search));
     };
   }, [addSearch, dispatch]);
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-      search = '';
-      dispatch(addSearch(search));
-    }
-  }, [addSearch, dispatch, isSubmitSuccessful, reset]);
+  const onSubmit = (data: SearchForm) => {
+    dispatch(addSearch(data.searchText));
+  };
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

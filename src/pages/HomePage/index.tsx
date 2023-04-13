@@ -1,25 +1,20 @@
 import Search from '../../components/search';
 import classes from './index.module.css';
 import CardsList from '../../components/cardsList';
-import { useState, useLayoutEffect } from 'react';
+import { useState } from 'react';
 import { ICard } from '../../components/card/interface';
 import Loader from '../../components/UI/loader';
 import Modal from '../../components/modal';
 import ModalCard from '../../components/modalCard';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getCardsApi } from '../../utils/getCardsApi';
+import { useAppSelector } from '../../hooks/redux';
+import { itemApi } from '../../store/reducers/ItemService';
+import { getError } from '../../utils/getError';
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-  const { items, isLoading, errorApi } = useAppSelector((state) => state.apiReducer);
   const [modalVisible, setModalVisible] = useState(false);
   const [card, setCard] = useState<ICard>({} as ICard);
-
-  useLayoutEffect(() => {
-    if (items.length === 0) {
-      dispatch(getCardsApi(''));
-    }
-  }, [dispatch, items.length]);
+  const { searchWord } = useAppSelector((state) => state.searchReducer);
+  const { data: items, isLoading, isFetching, error } = itemApi.useSearchItemsQuery(searchWord);
 
   return (
     <>
@@ -30,12 +25,15 @@ const Home = () => {
       <Modal visible={modalVisible} setVisible={setModalVisible}>
         <ModalCard card={card} />
       </Modal>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <Loader />
-      ) : errorApi ? (
-        <span className={classes.error}>{errorApi}</span>
+      ) : getError(error, items?.length === 0) ? (
+        <span className={classes.error}>{getError(error, items?.length === 0)}</span>
       ) : (
-        <CardsList cards={items} showCard={setModalVisible} getCard={setCard} />
+        items &&
+        items.length !== 0 && (
+          <CardsList cards={items} showCard={setModalVisible} getCard={setCard} />
+        )
       )}
     </>
   );

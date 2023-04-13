@@ -29,7 +29,7 @@ describe('HomePage', async () => {
   });
   test('Use field search to find picture', async () => {
     const mockData = {
-      data: CARDS_ARRAY,
+      data: JSON.parse(JSON.stringify(CARDS_ARRAY)),
     };
     global.fetch = vi.fn(() =>
       Promise.resolve({
