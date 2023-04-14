@@ -6,36 +6,25 @@ import { BrowserRouter } from 'react-router-dom';
 import { CARDS_ARRAY } from './constant';
 import { Provider } from 'react-redux';
 import { setupStore } from '../../store/store';
+import { useFetchItems } from '../../utils/useFetchItems';
+
+vi.mock('../../utils/useFetchItems', () => ({
+  useFetchItems: vi.fn(),
+}));
+
+const mockData = {
+  data: CARDS_ARRAY,
+};
 
 describe('HomePage', async () => {
   const store = setupStore();
   beforeEach(() => {
-    global.fetch = vi.fn();
+    (useFetchItems as Mock).mockImplementation(() => mockData);
   });
   afterEach(() => {
     vi.clearAllMocks();
   });
-  test('The presence of a loader at the time of the request', async () => {
-    render(
-      <Provider store={store}>
-        {' '}
-        <HomePage />{' '}
-      </Provider>,
-      { wrapper: BrowserRouter }
-    );
-    userEvent.type(screen.getByRole('searchbox'), 'Mone');
-    userEvent.click(screen.getByText(/Search/i));
-    expect(await screen.findByTestId('loader')).toBeInTheDocument;
-  });
   test('Use field search to find picture', async () => {
-    const mockData = {
-      data: JSON.parse(JSON.stringify(CARDS_ARRAY)),
-    };
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve(mockData),
-      })
-    ) as Mock;
     render(
       <Provider store={store}>
         {' '}

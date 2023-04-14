@@ -7,14 +7,14 @@ import Loader from '../../components/UI/loader';
 import Modal from '../../components/modal';
 import ModalCard from '../../components/modalCard';
 import { useAppSelector } from '../../hooks/redux';
-import { itemApi } from '../../store/reducers/ItemService';
 import { getError } from '../../utils/getError';
+import { useFetchItems } from '../../utils/useFetchItems';
 
 const Home = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [card, setCard] = useState<ICard>({} as ICard);
   const { searchWord } = useAppSelector((state) => state.searchReducer);
-  const { data: items, isLoading, isFetching, error } = itemApi.useSearchItemsQuery(searchWord);
+  const { data: items, isLoading, isFetching, error } = useFetchItems(searchWord);
 
   return (
     <>
