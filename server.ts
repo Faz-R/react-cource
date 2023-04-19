@@ -1,55 +1,44 @@
-import fs from 'node:fs/promises';
+import fs from 'fs';
+import path from 'path';
 import express from 'express';
-import { ViteDevServer } from 'vite';
+import { fileURLToPath } from 'url';
+import { createServer as createViteServer } from 'vite';
 
-// Constants
-const isProduction = process.env.NODE_ENV === 'production';
-const port = process.env.PORT || 5173;
-const base = process.env.BASE || '/';
-
-// Cached production assets
-const templateHtml = isProduction ? await fs.readFile('./dist/client/index.html', 'utf-8') : '';
-const ssrManifest = isProduction
-  ? await fs.readFile('./dist/client/ssr-manifest.json', 'utf-8')
-  : undefined;
-
-// Create http server
 const app = express();
+const port = 8000;
 
-// Add Vite or respective production middlewares
-const { createServer } = await import('vite');
-const vite = await createServer({
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const vite = await createViteServer({
   server: { middlewareMode: true },
   appType: 'custom',
-  base,
 });
 app.use(vite.middlewares);
 
-// Serve HTML
-app.use('*', async (req, res) => {
+app.use('*', async (req, res, next) => {
+  const url = req.originalUrl;
+
   try {
-    const url = req.originalUrl.replace(base, '');
-
-    let template: string;
-
-    // Always read fresh template in development
-    template = await fs.readFile('./index.html', 'utf-8');
+    let template = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
     template = await vite.transformIndexHtml(url, template);
-    const render = (await vite.ssrLoadModule('/src/entry-server.tsx')).render;
-
-    const rendered = await render(url, ssrManifest);
-
-    const html = template
-      .replace(`<!--app-head-->`, rendered.head ?? '')
-      .replace(`<!--app-html-->`, rendered.html ?? '');
-
-    res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-  } catch (e: unknown) {
-    console.log(e);
+    const html = template.split(`<!--ssr-outlet-->`);
+    const { render } = await vite.ssrLoadModule('./src/entry-server.tsx');
+    const { pipe } = await render(url, {
+      onShellReady() {
+        res.write(html[0]);
+        pipe(res);
+      },
+      onAllReady() {
+        res.write(html[0] + html[1]);
+        res.end();
+      },
+    });
+  } catch (e) {
+    vite.ssrFixStacktrace(e as Error);
+    next(e);
   }
 });
 
-// Start http server
 app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`);
 });
