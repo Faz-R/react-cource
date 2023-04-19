@@ -13,15 +13,9 @@
     "ssr": "ts-node --esm server.ts"
   },
   "dependencies": {
-    "@babel/core": "^7.21.4",
-    "@babel/preset-env": "^7.21.4",
-    "@babel/preset-react": "^7.18.6",
-    "@babel/register": "^7.21.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/react-redux": "^7.1.25",
     "express": "^4.18.2",
-    "ignore-styles": "^5.0.1",
-    "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
