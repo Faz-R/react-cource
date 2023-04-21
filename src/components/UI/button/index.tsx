@@ -7,7 +7,14 @@ type ButtonProps = {
 };
 
 const Button = ({ name, type, classElement = '' }: ButtonProps) => {
-  return <input type={type} className={`${classes.button} ${classElement}`} value={name} />;
+  return (
+    <input
+      type={type}
+      className={`${classes.button} ${classElement}`}
+      value={name}
+      data-testid={name}
+    />
+  );
 };
 
 export default Button;

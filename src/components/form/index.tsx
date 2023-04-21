@@ -48,7 +48,7 @@ const Form = ({ classForm }: FormProps) => {
   return (
     <form className={`${classes.form} ${classForm}`} onSubmit={handleSubmit(onSubmit)}>
       {message ? (
-        <div className={classes.message}>
+        <div className={classes.message} data-testid="message">
           <span className={classes.message__text}>Information has been saved</span>
         </div>
       ) : (
@@ -122,7 +122,11 @@ const Form = ({ classForm }: FormProps) => {
             }}
             value="female"
           />
-          {errors.gender && <span className={classes.sex__error}>{errors.gender.message}</span>}
+          {errors.gender && (
+            <span className={classes.sex__error} data-testid="gender-error">
+              {errors.gender.message}
+            </span>
+          )}
         </div>
       </div>
       <InputFile

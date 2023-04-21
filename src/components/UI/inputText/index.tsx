@@ -13,7 +13,11 @@ const InputText = ({ labelName, register, error }: InputProps) => {
     <label className={classes.label}>
       {labelName}
       <input {...register} className={classes.input} data-testid={register.name} />
-      {error && <span className={classes.error}>{error.message}</span>}
+      {error && (
+        <span className={classes.error} data-testid={`${register.name}-error`}>
+          {error.message}
+        </span>
+      )}
     </label>
   );
 };

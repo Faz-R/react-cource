@@ -13,7 +13,7 @@ const Select = ({ labelName, options, register, error }: InputProps) => {
   return (
     <label className={classes.label}>
       {labelName}
-      <select {...register} className={classes.select}>
+      <select {...register} className={classes.select} data-testid={register.name}>
         {options.map((option) => {
           return (
             <option value={option} className={classes.option} key={option}>
@@ -22,7 +22,11 @@ const Select = ({ labelName, options, register, error }: InputProps) => {
           );
         })}
       </select>
-      {error && <span className={classes.error}>{error.message}</span>}
+      {error && (
+        <span className={classes.error} data-testid={`${register.name}-error`}>
+          {error.message}
+        </span>
+      )}
     </label>
   );
 };

@@ -12,7 +12,13 @@ const Radio = ({ labelName, register, value }: RadioProps) => {
   return (
     <label className={classes.label}>
       <span className={classes.text}>{labelName}</span>
-      <input type="radio" {...register} value={value} className={classes.input} />
+      <input
+        type="radio"
+        {...register}
+        value={value}
+        className={classes.input}
+        data-testid={labelName}
+      />
     </label>
   );
 };

@@ -11,9 +11,13 @@ interface InputProps {
 const Checkbox = ({ labelName, register, error }: InputProps) => {
   return (
     <label className={classes.label}>
-      <input type="checkbox" {...register} className={classes.input} />
+      <input type="checkbox" {...register} className={classes.input} data-testid={register.name} />
       {labelName}
-      {error && <span className={classes.error}>{error.message}</span>}
+      {error && (
+        <span className={classes.error} data-testid={`${register.name}-error`}>
+          {error.message}
+        </span>
+      )}
     </label>
   );
 };

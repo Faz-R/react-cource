@@ -19,7 +19,9 @@ const Home = () => {
   return (
     <>
       <section className={classes.search}>
-        <h1 className="title">Gallery</h1>
+        <h1 className="title" data-testid="gallery-heading">
+          Gallery
+        </h1>
         <Search />
       </section>
       <Modal visible={modalVisible} setVisible={setModalVisible}>

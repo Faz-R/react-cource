@@ -11,11 +11,15 @@ interface InputProps {
 const InputFile = ({ labelName, register, error }: InputProps) => {
   return (
     <div className={classes.wrapper}>
-      <label className={classes.label}>
+      <label className={classes.label} data-testid={register.name}>
         {labelName}
         <input type="file" {...register} className={classes.input} />
       </label>
-      {error && <span className={classes.error}>{error.message}</span>}
+      {error && (
+        <span className={classes.error} data-testid={`${register.name}-error`}>
+          {error.message}
+        </span>
+      )}
     </div>
   );
 };

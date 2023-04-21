@@ -12,8 +12,12 @@ const InputDate = ({ labelName, register, error }: InputProps) => {
   return (
     <label className={classes.label}>
       {labelName}
-      <input {...register} type="date" className={classes.input} />
-      {error && <span className={classes.error}>{error.message}</span>}
+      <input {...register} type="date" className={classes.input} data-testid={register.name} />
+      {error && (
+        <span className={classes.error} data-testid={`${register.name}-error`}>
+          {error.message}
+        </span>
+      )}
     </label>
   );
 };
