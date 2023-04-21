@@ -21,7 +21,7 @@ app.use('*', async (req, res, next) => {
   try {
     let template = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
     template = await vite.transformIndexHtml(url, template);
-    const html = template.split(`<!--ssr-outlet-->`);
+    const html = template.split(`<!--ssr-->`);
     const { render } = await vite.ssrLoadModule('./src/entry-server.tsx');
     const { pipe } = await render(url, {
       onShellReady() {
@@ -29,7 +29,7 @@ app.use('*', async (req, res, next) => {
         pipe(res);
       },
       onAllReady() {
-        res.write(html[0] + html[1]);
+        res.write(html[1]);
         res.end();
       },
     });
@@ -40,5 +40,5 @@ app.use('*', async (req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server started at http://localhost:${port}`);
+  console.log(`Server started at\x1b[33m http://localhost:${port} \x1b[0m`);
 });
