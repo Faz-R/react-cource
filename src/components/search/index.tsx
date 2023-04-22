@@ -49,7 +49,7 @@ const Search = () => {
         })}
         data-testid="search"
       />
-      <button type="submit" className={classes.button}>
+      <button type="submit" className={classes.button} data-testid="search-submit">
         Search
       </button>
     </form>

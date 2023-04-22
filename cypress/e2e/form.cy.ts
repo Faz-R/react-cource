@@ -18,6 +18,9 @@ describe('Form page', () => {
     cy.getByData('Submit').click();
     cy.getByData('message').should('exist');
     cy.getByData('person-card').should('exist');
+    cy.getByData('person-card').should('exist').contains('John Wick');
+    cy.getByData('person-card').should('exist').contains('Belarus');
+    cy.getByData('person-card').should('exist').contains('2020-05-24');
   });
   it('Send empty form', () => {
     cy.getByData('Submit').click();

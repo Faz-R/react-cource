@@ -15,7 +15,9 @@ const FormPage = () => {
 
   return (
     <>
-      <h1 className="title">Form</h1>
+      <h1 className="title" data-testid="form-title">
+        Form
+      </h1>
       <section className={classes.section}>
         <Form classForm={classes.form} />
         <PersonCardsList cards={infoCards} classPerson={classes.list} />

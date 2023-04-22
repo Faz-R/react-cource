@@ -9,13 +9,13 @@
     "preview": "vite preview",
     "vi:test": "vitest run --coverage",
     "lint": "eslint . --fix",
-    "cy:open": "cypress open",
+    "cy:open": "cypress open --e2e --browser chrome",
     "cy:run": "cypress run",
     "cy:report": "npx nyc report --reporter=text-summary",
     "test:clean": "npx rimraf coverage && npx rimraf .nyc_output",
     "cy:e2e": "start-server-and-test start http-get://localhost:8000 cy:run",
     "cy:coverage-file": "npm run test:clean && start-server-and-test start http-get://localhost:8000 cy:open",
-    "e2e:coverage": "npm run e2e && npm run cy:report"
+    "e2e:coverage": "npm run cy:e2e && npm run cy:report"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",

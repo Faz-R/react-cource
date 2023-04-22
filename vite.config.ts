@@ -19,7 +19,16 @@ export default defineConfig({
       provider: 'c8',
       reporter: ['text'],
       all: true,
-      exclude: ['**/interface.ts', '**/vite.config.ts', '**/vite-env.d.ts '],
+      exclude: [
+        '**/interface.ts',
+        '**/vite.config.ts',
+        '**/vite-env.d.ts',
+        '**/cypress',
+        '**/cypress.config.ts',
+        '**/server.ts',
+        '**/entry-client.tsx',
+        '**/entry-server.tsx',
+      ],
     },
   },
 });

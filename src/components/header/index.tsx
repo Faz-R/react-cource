@@ -15,13 +15,13 @@ const Header = () => {
             <div className={`${classes.link} ${classes.current}`}>
               {location.pathname.slice(1).replace('-', ' ') || 'Home'}
             </div>
-            <NavLink to="/" className={setActive}>
+            <NavLink to="/" className={setActive} data-testid="home-link">
               Home
             </NavLink>
-            <NavLink to="/form" className={setActive}>
+            <NavLink to="/form" className={setActive} data-testid="form-link">
               Form
             </NavLink>
-            <NavLink to="/about-us" className={setActive}>
+            <NavLink to="/about-us" className={setActive} data-testid="about-link">
               About us
             </NavLink>
           </div>

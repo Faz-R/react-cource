@@ -15,6 +15,7 @@ const Modal = ({ visible, setVisible, children }: ModalProps) => {
         e.stopPropagation();
         setVisible(false);
       }}
+      data-testid="modal"
     >
       <div className={classes.content} onClick={(e) => e.stopPropagation()}>
         <div
@@ -23,6 +24,7 @@ const Modal = ({ visible, setVisible, children }: ModalProps) => {
             e.stopPropagation();
             setVisible(false);
           }}
+          data-testid="close"
         />
         {children}
       </div>
