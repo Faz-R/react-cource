@@ -1,3 +1,8 @@
+@import './pages/FormPage/index.css';
+@import './pages/HomePage/index.css';
+@import './components/header/index.css';
+@import './components/layout/index.css';
+
 * {
   margin: 0;
   padding: 0;

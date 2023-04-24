@@ -1,6 +1,6 @@
 import { FieldError, UseFormRegister } from 'react-hook-form';
 import { FormValues } from '../../form/interface';
-import classes from './index.module.css';
+import './index.css';
 
 interface InputProps {
   labelName: string;
@@ -10,11 +10,11 @@ interface InputProps {
 
 const InputText = ({ labelName, register, error }: InputProps) => {
   return (
-    <label className={classes.label}>
+    <label className="form__input-text__label">
       {labelName}
-      <input {...register} className={classes.input} data-testid={register.name} />
+      <input {...register} className="form__input-text" data-testid={register.name} />
       {error && (
-        <span className={classes.error} data-testid={`${register.name}-error`}>
+        <span className="form__input-text__error" data-testid={`${register.name}-error`}>
           {error.message}
         </span>
       )}

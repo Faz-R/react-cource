@@ -1,4 +1,4 @@
-import classes from './index.module.css';
+import './index.css';
 import { countries } from '../../constant/countries';
 import Button from '../UI/button';
 import Checkbox from '../UI/checkbox';
@@ -46,15 +46,15 @@ const Form = ({ classForm }: FormProps) => {
   }, [isSubmitSuccessful, reset]);
 
   return (
-    <form className={`${classes.form} ${classForm}`} onSubmit={handleSubmit(onSubmit)}>
+    <form className={`form ${classForm}`} onSubmit={handleSubmit(onSubmit)}>
       {message ? (
-        <div className={classes.message} data-testid="message">
-          <span className={classes.message__text}>Information has been saved</span>
+        <div className="form__message" data-testid="message">
+          <span className="form__message__text">Information has been saved</span>
         </div>
       ) : (
         ''
       )}
-      <div className={classes.info__row}>
+      <div className="form__info__row">
         <InputText
           labelName="First name"
           register={{
@@ -79,7 +79,7 @@ const Form = ({ classForm }: FormProps) => {
         />
       </div>
 
-      <div className={classes.info__row}>
+      <div className="form__info__row">
         <InputDate
           labelName="Date of Birth"
           register={{
@@ -101,9 +101,9 @@ const Form = ({ classForm }: FormProps) => {
           error={errors.country}
         />
       </div>
-      <div className={classes.info__column}>
-        <span className={classes.block__title}>Gender</span>
-        <div className={classes.sex}>
+      <div className="form__info__column">
+        <span className="form__block__title">Gender</span>
+        <div className="form__sex">
           <Radio
             labelName="Male"
             register={{
@@ -123,7 +123,7 @@ const Form = ({ classForm }: FormProps) => {
             value="female"
           />
           {errors.gender && (
-            <span className={classes.sex__error} data-testid="gender-error">
+            <span className="form__sex__error" data-testid="gender-error">
               {errors.gender.message}
             </span>
           )}
@@ -147,7 +147,7 @@ const Form = ({ classForm }: FormProps) => {
         }}
         error={errors.check}
       />
-      <Button name={'Submit'} type={'submit'} classElement={classes.button} />
+      <Button name={'Submit'} type={'submit'} classElement="form__button" />
     </form>
   );
 };

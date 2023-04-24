@@ -1,0 +1,20 @@
+@import '../../components/search/index.css';
+@import '../../components/modal/index.css';
+
+.section-search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.section-search__error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 20px;
+  font-weight: 500;
+  color: tomato;
+}

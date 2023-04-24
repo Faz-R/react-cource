@@ -1,0 +1,20 @@
+@import "../../components/form/index.css";
+
+.section-form {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 4%;
+}
+
+.section-form__form {
+  margin-top: 30px;
+  width: 38%;
+}
+
+.section-form__list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 58%;
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import classes from './index.module.css';
+import './index.css';
 import Form from '../../components/form';
 import PersonCardsList from '../../components/personCardList';
 import { PersonData } from '../../components/form/interface';
@@ -18,9 +18,9 @@ const FormPage = () => {
       <h1 className="title" data-testid="form-title">
         Form
       </h1>
-      <section className={classes.section}>
-        <Form classForm={classes.form} />
-        <PersonCardsList cards={infoCards} classPerson={classes.list} />
+      <section className="section-form">
+        <Form classForm={'section-form__form'} />
+        <PersonCardsList cards={infoCards} classPerson={'section-form__list'} />
       </section>
     </>
   );

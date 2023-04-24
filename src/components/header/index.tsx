@@ -1,18 +1,18 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import classes from './index.module.css';
+import './index.css';
 
 const Header = () => {
   const setActive = ({ isActive }: { isActive: boolean }) =>
-    isActive ? `${classes.link} ${classes.active}` : `${classes.link}`;
+    isActive ? `header__link header__active` : `header__link`;
 
   const location = useLocation();
 
   return (
     <>
-      <header className={classes.header}>
+      <header className="header">
         <div className="container">
-          <div className={classes.navigation}>
-            <div className={`${classes.link} ${classes.current}`}>
+          <div className="header__navigation">
+            <div className={`header__link header__current`}>
               {location.pathname.slice(1).replace('-', ' ') || 'Home'}
             </div>
             <NavLink to="/" className={setActive} data-testid="home-link">

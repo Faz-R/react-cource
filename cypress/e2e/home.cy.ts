@@ -8,7 +8,6 @@ describe('Home page', () => {
       cy.getByData('modal').should('exist');
       cy.getByData('gallery-heading').contains(/gallery/i);
       cy.getByData('search').type('Mone{enter}');
-      cy.getByData('loader').should('not.exist');
       cy.getByData('picture-card').should('have.length', 10);
       cy.getByData('picture-card').should('have.length', 10).eq(0).click();
       cy.getByData('modal').should('exist');

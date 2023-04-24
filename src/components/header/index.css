@@ -1,0 +1,41 @@
+.header {
+  margin: 0;
+  padding: 0;
+  padding: 2rem;
+  text-align: center;
+  background-color: #16181d;
+}
+
+.header__navigation {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: center;
+}
+
+.header__link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.header__link:hover {
+  color: #61dafb;
+  transition: 0.3s;
+}
+
+.header__active {
+  text-decoration: none;
+  color: #61dafb;
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.header__current {
+  color: #61dafb;
+  margin-right: auto;
+  text-transform: uppercase;
+}

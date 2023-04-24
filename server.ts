@@ -40,5 +40,5 @@ app.use('*', async (req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server started \x1b[38;5;45m http://localhost:${port} \x1b[38;5;45m`);
+  console.log(`Server started \x1b[38;5;45m http://localhost:${port} \x1b[0m`);
 });
