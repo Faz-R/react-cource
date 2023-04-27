@@ -1,6 +1,6 @@
 import { UseFormRegister, FieldError } from 'react-hook-form';
 import { FormValues } from '../../form/interface';
-import classes from './index.module.css';
+import './index.css';
 
 interface InputProps {
   labelName: string;
@@ -10,10 +10,14 @@ interface InputProps {
 
 const Checkbox = ({ labelName, register, error }: InputProps) => {
   return (
-    <label className={classes.label}>
-      <input type="checkbox" {...register} className={classes.input} />
+    <label className="form__checkbox__label">
+      <input type="checkbox" {...register} className="form__checkbox" data-testid={register.name} />
       {labelName}
-      {error && <span className={classes.error}>{error.message}</span>}
+      {error && (
+        <span className="form__checkbox__error" data-testid={`${register.name}-error`}>
+          {error.message}
+        </span>
+      )}
     </label>
   );
 };

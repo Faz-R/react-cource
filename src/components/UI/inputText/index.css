@@ -1,4 +1,4 @@
-.label {
+.form__input-text__label {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@
   box-sizing: border-box;
 }
 
-.select {
+.form__input-text {
   padding: 5px 10px;
   font-size: 20px;
   width: 100%;
@@ -17,14 +17,15 @@
   font-family: inherit;
   border: 2px solid transparent;
   border-radius: 4px;
+  text-transform: capitalize;
 }
 
-.select:focus {
+.form__input-text:focus {
   outline: none;
   border: 2px solid #61dafb;
 }
 
-.error {
+.form__input-text__error {
   width: 100%;
   display: flex;
   justify-content: center;

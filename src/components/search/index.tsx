@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import classes from './index.module.css';
+import './index.css';
 import { useForm } from 'react-hook-form';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { SearchSlice } from '../../store/reducers/searchSlice';
@@ -37,11 +37,13 @@ const Search = () => {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-      {errors.searchText && <span className={classes.error}>{errors.searchText.message}</span>}
+    <form className="section-search__form" onSubmit={handleSubmit(onSubmit)}>
+      {errors.searchText && (
+        <span className="section-search__form__error">{errors.searchText.message}</span>
+      )}
       <input
         type="search"
-        className={classes.search}
+        className="section-search__form__search-field"
         {...register('searchText', {
           required: 'Field is empty',
           onChange: (e) => changeSearch(e),
@@ -49,7 +51,7 @@ const Search = () => {
         })}
         data-testid="search"
       />
-      <button type="submit" className={classes.button}>
+      <button type="submit" className="section-search__form__button" data-testid="search-submit">
         Search
       </button>
     </form>

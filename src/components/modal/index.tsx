@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import classes from './index.module.css';
+import './index.css';
 
 interface ModalProps {
   visible: boolean;
@@ -10,19 +10,21 @@ interface ModalProps {
 const Modal = ({ visible, setVisible, children }: ModalProps) => {
   return (
     <div
-      className={`${classes.modal} ${visible && classes.active}`}
+      className={`modal ${visible && 'modal__active'}`}
       onClick={(e) => {
         e.stopPropagation();
         setVisible(false);
       }}
+      data-testid="modal"
     >
-      <div className={classes.content} onClick={(e) => e.stopPropagation()}>
+      <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <div
-          className={`fa-solid fa-xmark ${classes.cross}`}
+          className={`fa-solid fa-xmark modal__cross`}
           onClick={(e) => {
             e.stopPropagation();
             setVisible(false);
           }}
+          data-testid="close"
         />
         {children}
       </div>

@@ -1,4 +1,4 @@
-.button {
+.form__button {
   align-self: center;
   width: 50%;
   font-size: 20px;
@@ -16,7 +16,7 @@
   transition: 0.2s;
 }
 
-.button:hover {
+.form__button:hover {
   color: #fff;
   border: 2px solid #61dafb;
   background-color: transparent;

@@ -1,5 +1,5 @@
 import Search from '../../components/search';
-import classes from './index.module.css';
+import './index.css';
 import CardsList from '../../components/cardsList';
 import { useState } from 'react';
 import { ICard } from '../../components/card/interface';
@@ -18,8 +18,10 @@ const Home = () => {
 
   return (
     <>
-      <section className={classes.search}>
-        <h1 className="title">Gallery</h1>
+      <section className="section-search">
+        <h1 className="title" data-testid="gallery-heading">
+          Gallery
+        </h1>
         <Search />
       </section>
       <Modal visible={modalVisible} setVisible={setModalVisible}>
@@ -28,7 +30,7 @@ const Home = () => {
       {isLoading || isFetching ? (
         <Loader />
       ) : getError(error, items?.length === 0) ? (
-        <span className={classes.error}>{getError(error, items?.length === 0)}</span>
+        <span className="section-search__error">{getError(error, items?.length === 0)}</span>
       ) : (
         items &&
         items.length !== 0 && (

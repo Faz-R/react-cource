@@ -1,4 +1,4 @@
-.label {
+.form__radio__label {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-.input {
+.form__radio {
   appearance: none;
   border: 2px solid #fff;
   border-radius: 50%;
@@ -18,11 +18,11 @@
   cursor: pointer;
 }
 
-.input:focus {
+.form__radio:focus {
   outline: none;
 }
 
-.input:checked {
+.form__radio:checked {
   border-color: #61dafb;
   border-radius: 0;
   height: 7px;

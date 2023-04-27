@@ -1,6 +1,6 @@
 import { UseFormRegister, FieldError } from 'react-hook-form';
 import { FormValues } from '../../form/interface';
-import classes from './index.module.css';
+import './index.css';
 
 interface InputProps {
   labelName: string;
@@ -10,12 +10,16 @@ interface InputProps {
 
 const InputFile = ({ labelName, register, error }: InputProps) => {
   return (
-    <div className={classes.wrapper}>
-      <label className={classes.label}>
+    <div className="from__file__wrapper">
+      <label className="from__file__label" data-testid={register.name}>
         {labelName}
-        <input type="file" {...register} className={classes.input} />
+        <input type="file" {...register} className="from__file" />
       </label>
-      {error && <span className={classes.error}>{error.message}</span>}
+      {error && (
+        <span className="from__file__error" data-testid={`${register.name}-error`}>
+          {error.message}
+        </span>
+      )}
     </div>
   );
 };

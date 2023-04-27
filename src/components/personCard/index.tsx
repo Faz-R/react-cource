@@ -3,7 +3,10 @@ import classes from './index.module.css';
 
 const PersonCard = ({ card }: { card: PersonData }) => {
   return (
-    <li className={`${classes.card} {card.check ? classes.check : classes.uncheck}`}>
+    <li
+      className={`${classes.card} {card.check ? classes.check : classes.uncheck}`}
+      data-testid="person-card"
+    >
       <div className={classes.picture}>
         <img src={card.photo} alt={card.firstName} className={classes.img} />
         <span className={classes.sex}>

@@ -6,14 +6,14 @@
   background-color: #16181d;
 }
 
-.navigation {
+.header__navigation {
   display: flex;
   flex-direction: row;
   gap: 1em;
   justify-content: center;
 }
 
-.link {
+.header__link {
   text-decoration: none;
   color: #fff;
   font-size: 20px;
@@ -21,12 +21,12 @@
   text-transform: uppercase;
 }
 
-.link:hover {
+.header__link:hover {
   color: #61dafb;
   transition: 0.3s;
 }
 
-.active {
+.header__active {
   text-decoration: none;
   color: #61dafb;
   font-size: 20px;
@@ -34,7 +34,7 @@
   text-transform: uppercase;
 }
 
-.current {
+.header__current {
   color: #61dafb;
   margin-right: auto;
   text-transform: uppercase;

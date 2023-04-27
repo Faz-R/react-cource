@@ -1,3 +1,5 @@
+@import '../modalCard/index.css';
+
 .modal{
   position: fixed;
   top: 0;
@@ -17,7 +19,7 @@
   cursor: pointer;
 }
 
-.content{
+.modal__content{
   position: relative;
   padding: 30px;
   background-color: #fff;
@@ -27,12 +29,12 @@
   cursor: default;
 }
 
-.active{
+.modal__active{
   opacity: 1;
   visibility: visible;
 }
 
-.cross{
+.modal__cross{
   position: absolute;
   top: 15px;
   right: 15px;

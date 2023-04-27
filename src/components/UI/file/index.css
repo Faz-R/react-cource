@@ -1,9 +1,9 @@
-.wrapper {
+.from__file__wrapper {
   padding-top: 10px;
   position: relative;
 }
 
-.label {
+.from__file__label {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -23,15 +23,15 @@
   margin-bottom: 30px;
 }
 
-.label:hover {
+.from__file__label:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.input {
+.from__file {
   display: none;
 }
 
-.error {
+.from__file__error {
   width: 50%;
   display: flex;
   justify-content: center;

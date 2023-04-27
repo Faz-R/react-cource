@@ -1,6 +1,6 @@
 import { UseFormRegister } from 'react-hook-form';
 import { FormValues } from '../../form/interface';
-import classes from './index.module.css';
+import './index.css';
 
 type RadioProps = {
   labelName: string;
@@ -10,9 +10,15 @@ type RadioProps = {
 
 const Radio = ({ labelName, register, value }: RadioProps) => {
   return (
-    <label className={classes.label}>
-      <span className={classes.text}>{labelName}</span>
-      <input type="radio" {...register} value={value} className={classes.input} />
+    <label className="form__radio__label">
+      <span className="form__radio__text">{labelName}</span>
+      <input
+        type="radio"
+        {...register}
+        value={value}
+        className="form__radio"
+        data-testid={labelName}
+      />
     </label>
   );
 };

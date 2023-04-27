@@ -1,4 +1,4 @@
-.label {
+.form__checkbox__label {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -9,7 +9,7 @@
   box-sizing: border-box;
 }
 
-.input {
+.form__checkbox {
   appearance: none;
   border: 2px solid #fff;
   width: 15px;
@@ -18,11 +18,11 @@
   cursor: pointer;
 }
 
-.input:focus {
+.form__checkbox:focus {
   outline: none;
 }
 
-.input:checked {
+.form__checkbox:checked {
   border-color: #61dafb;
   border-radius: 0;
   height: 7px;
@@ -33,7 +33,7 @@
   bottom: 2px;
 }
 
-.error {
+.form__checkbox__error {
   width: 100%;
   display: flex;
   justify-content: center;

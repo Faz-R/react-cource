@@ -1,6 +1,6 @@
 import { FieldError, UseFormRegister } from 'react-hook-form';
 import { FormValues } from '../../form/interface';
-import classes from './index.module.css';
+import './index.css';
 
 interface InputProps {
   labelName: string;
@@ -11,18 +11,22 @@ interface InputProps {
 
 const Select = ({ labelName, options, register, error }: InputProps) => {
   return (
-    <label className={classes.label}>
+    <label className="form__select__label">
       {labelName}
-      <select {...register} className={classes.select}>
+      <select {...register} className="form__select" data-testid={register.name}>
         {options.map((option) => {
           return (
-            <option value={option} className={classes.option} key={option}>
+            <option value={option} className="form__select__option" key={option}>
               {option}
             </option>
           );
         })}
       </select>
-      {error && <span className={classes.error}>{error.message}</span>}
+      {error && (
+        <span className="form__select__error" data-testid={`${register.name}-error`}>
+          {error.message}
+        </span>
+      )}
     </label>
   );
 };

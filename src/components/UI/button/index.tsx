@@ -1,4 +1,4 @@
-import classes from './index.module.css';
+import './index.css';
 
 type ButtonProps = {
   name: string;
@@ -7,7 +7,9 @@ type ButtonProps = {
 };
 
 const Button = ({ name, type, classElement = '' }: ButtonProps) => {
-  return <input type={type} className={`${classes.button} ${classElement}`} value={name} />;
+  return (
+    <input type={type} className={`form__button ${classElement}`} value={name} data-testid={name} />
+  );
 };
 
 export default Button;

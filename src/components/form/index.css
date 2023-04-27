@@ -1,3 +1,11 @@
+@import '../UI/inputText/index.css';
+@import '../UI/date/index.css';
+@import '../UI/select/index.css';
+@import '../UI/radio/index.css';
+@import '../UI/file/index.css';
+@import '../UI/checkbox/index.css';
+@import '../UI/button/index.css';
+
 .form {
   position: relative;
   display: flex;
@@ -7,7 +15,7 @@
   width: 500px;
 }
 
-.info__row {
+.form__info__row {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -15,11 +23,11 @@
   font-size: 20px;
 }
 
-.block__title {
+.form__block__title {
   cursor: default;
 }
 
-.info__column {
+.form__info__column {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -27,7 +35,7 @@
   font-size: 20px;
 }
 
-.sex {
+.form__sex {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -35,7 +43,7 @@
   padding-bottom: 25px;
 }
 
-.sex__error {
+.form__sex__error {
   font-size: 16px;
   font-weight: 300;
   position: absolute;
@@ -43,7 +51,7 @@
   color: tomato;
 }
 
-.message {
+.form__message {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,7 +66,7 @@
   z-index: 10;
 }
 
-.message__text {
+.form__message__text {
   background-color: #fff;
   color: #222;
   border-radius: 5px;
@@ -68,6 +76,6 @@
   border: 3px solid #61dafb;
 }
 
-.button {
+.form__button {
   margin-top: 20px;
 }
